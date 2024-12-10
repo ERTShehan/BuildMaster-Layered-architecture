@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="machineTablePane" prefHeight="427.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.AllMachinesTableController">
+    <children>
+        <TableView fx:id="tblMachines" prefHeight="400.0" prefWidth="651.0">
+            <columns>
+                <TableColumn fx:id="colMachineId" prefWidth="100.0" text="Machine ID" />
+                <TableColumn fx:id="colMachineName" prefWidth="195.0" text="Name" />
+                <TableColumn fx:id="colMachineStatus" prefWidth="197.0" text="Status" />
+                <TableColumn fx:id="colMachineDescription" prefWidth="157.0" text="Description" />
+            </columns>
+        </TableView>
+        <JFXButton fx:id="btnCloseTable" layoutX="577.0" layoutY="400.0" onAction="#onClientTableClose" prefHeight="27.0" prefWidth="74.0" style="-fx-background-color: #ff3f34;" text="Close" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font></JFXButton>
+    </children>
+
+</AnchorPane>

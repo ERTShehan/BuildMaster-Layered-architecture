@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.ProgressBar?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" alignment="CENTER" spacing="20"  fx:controller="com.assignment.buildmasternew.controller.SplashScreenController">
+    <ProgressBar fx:id="progressBar" prefWidth="300" />
+</VBox>

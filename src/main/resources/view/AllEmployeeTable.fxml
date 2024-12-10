@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="employeeTablePane" prefHeight="427.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.AllEmployeeTableController">
+    <children>
+        <TableView fx:id="tblEmployee" prefHeight="400.0" prefWidth="651.0">
+            <columns>
+                <TableColumn fx:id="colEmployeeId" prefWidth="100.0" text="Employee ID" />
+                <TableColumn fx:id="colEmployeeName" prefWidth="141.0" text="Employee Name" />
+                <TableColumn fx:id="colEmployeePhone" prefWidth="153.0" text="Phone" />
+                <TableColumn fx:id="colEmployeeAddress" prefWidth="106.0" text="Address" />
+                <TableColumn fx:id="colEmployeeRole" prefWidth="150.0" text="Role" />
+            </columns>
+        </TableView>
+        <JFXButton fx:id="btnCloseTable" layoutX="577.0" layoutY="400.0" onAction="#onEmployeeTableClose" prefHeight="27.0" prefWidth="74.0" style="-fx-background-color: #ff3f34;" text="Close" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font></JFXButton>
+    </children>
+
+</AnchorPane>

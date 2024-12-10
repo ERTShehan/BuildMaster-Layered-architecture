@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="643.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.ReportController">
+   <children>
+      <ImageView fitHeight="619.0" fitWidth="972.0" layoutX="147.0" layoutY="9.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/logonew.png" />
+         </image>
+      </ImageView>
+      <JFXButton fx:id="btnTotalCost" layoutX="95.0" layoutY="322.0" onAction="#onTotalCostReportAction" prefHeight="52.0" prefWidth="316.0" style="-fx-border-color: #ffa801; -fx-border-width: 4; -fx-border-radius: 10;" text="Total Cost">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnClientDetails" layoutX="95.0" layoutY="140.0" onAction="#onClientDetailsReportAction" prefHeight="52.0" prefWidth="316.0" style="-fx-border-color: #ffa801; -fx-border-width: 4; -fx-border-radius: 10;" text="Client Details">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="565.0" prefWidth="1130.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.MachineFormController">
+   <children>
+      <ImageView fitHeight="619.0" fitWidth="972.0" layoutX="96.0" layoutY="9.0" opacity="0.35" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/logonew.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="178.0" layoutY="389.0" prefHeight="40.0" prefWidth="387.0" style="-fx-border-color: #1e272e; -fx-border-radius: 10;" />
+      <Label layoutX="178.0" layoutY="304.0" prefHeight="40.0" prefWidth="387.0" style="-fx-border-color: #1e272e; -fx-border-radius: 10;" />
+      <Label layoutX="178.0" layoutY="224.0" prefHeight="40.0" prefWidth="387.0" style="-fx-border-color: #1e272e; -fx-border-radius: 10;" />
+      <Label layoutX="411.0" layoutY="53.0" text="Machine Details">
+         <font>
+            <Font name="Ubuntu Mono Italic" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="41.0" layoutY="135.0" prefHeight="38.0" prefWidth="107.0" text="Machine ID">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblMachineID" layoutX="190.0" layoutY="134.0" prefHeight="32.0" prefWidth="325.0" text="M001">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label layoutX="41.0" layoutY="221.0" prefHeight="38.0" prefWidth="119.0" text="Machine Name">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtMachineName" focusTraversable="false" layoutX="190.0" layoutY="224.0" prefHeight="32.0" prefWidth="363.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="40.0" layoutY="301.0" prefHeight="38.0" prefWidth="91.0" text="Status">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtMachineStatus" focusTraversable="false" layoutX="190.0" layoutY="304.0" prefHeight="32.0" prefWidth="363.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXTextField>
+      <Label layoutX="35.0" layoutY="386.0" prefHeight="38.0" prefWidth="119.0" text="Description">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtMachineDescription" focusTraversable="false" layoutX="190.0" layoutY="389.0" prefHeight="32.0" prefWidth="363.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </JFXTextField>
+      <JFXComboBox fx:id="cmbMachineId" focusTraversable="false" layoutX="656.0" layoutY="160.0" onAction="#cmbMachineOnAction" prefHeight="26.0" prefWidth="134.0" promptText="Select Machine ID" />
+      <JFXButton fx:id="btnMachineReset" focusTraversable="false" layoutX="128.0" layoutY="491.0" onAction="#onMachineResetAction" style="-fx-background-color: #fed330; -fx-background-radius: 20;" text="Reset">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnMachineSave" focusTraversable="false" layoutX="415.0" layoutY="491.0" onAction="#onSaveMachine" style="-fx-background-color: #fed330; -fx-background-radius: 20;" text="Save">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnMachineUpdate" focusTraversable="false" layoutX="675.0" layoutY="491.0" onAction="#onUpdateMachine" style="-fx-background-color: #fed330; -fx-background-radius: 20;" text="Update">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnMachineDelete" focusTraversable="false" layoutX="965.0" layoutY="491.0" onAction="#onDeleteMachine" style="-fx-background-color: #fed330; -fx-background-radius: 20;" text="Delete">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </JFXButton>
+      <Button focusTraversable="false" layoutX="928.0" layoutY="27.0" mnemonicParsing="false" onAction="#onLoadMachineTable" prefHeight="36.0" prefWidth="187.0" style="-fx-border-color: #ffa801; -fx-border-width: 3;" text="View All Machine Details">
+         <font>
+            <Font size="14.0" />
+         </font></Button>
+   </children>
+</AnchorPane>

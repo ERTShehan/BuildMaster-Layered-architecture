@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="materialUsagePane" prefHeight="620.0" prefWidth="1276.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.MaterialUsageController">
+   <children>
+      <Label layoutX="182.0" layoutY="336.0" prefHeight="40.0" prefWidth="275.0" style="-fx-border-color: #1e272e; -fx-border-radius: 10;" />
+      <Label layoutX="485.0" layoutY="52.0" text="Material Usage">
+         <font>
+            <Font name="Ubuntu Mono Italic" size="36.0" />
+         </font>
+      </Label>
+      <Label layoutX="61.0" layoutY="142.0" text="Project ID">
+         <font>
+            <Font name="Ubuntu Sans Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="56.0" layoutY="206.0" text="Material ID">
+         <font>
+            <Font name="Ubuntu Sans Italic" size="16.0" />
+         </font>
+      </Label>
+      <JFXComboBox fx:id="cmbProjectIdUsage" layoutX="193.0" layoutY="139.0" onAction="#cmbProjectIdLoadUsage" prefHeight="26.0" prefWidth="139.0" promptText="Select Project ID" />
+      <JFXComboBox fx:id="cmbMaterialIdUsage" layoutX="193.0" layoutY="202.0" onAction="#cmbMaterialIdLoadUsage" prefHeight="26.0" prefWidth="139.0" promptText="Select Material ID" />
+      <Label layoutX="461.0" layoutY="143.0" text="Project Name">
+         <font>
+            <Font name="Ubuntu Sans Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="461.0" layoutY="206.0" text="Material Name">
+         <font>
+            <Font name="Ubuntu Sans Italic" size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblProjectNameUsage" layoutX="642.0" layoutY="139.0" prefHeight="26.0" prefWidth="184.0" />
+      <Label fx:id="lblMaterialNameUsage" layoutX="642.0" layoutY="203.0" prefHeight="26.0" prefWidth="184.0" />
+      <Line endX="1096.0" layoutX="172.0" layoutY="261.0" startX="-100.0" />
+      <Label layoutX="56.0" layoutY="284.0" text="Usage ID">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblUsageID" layoutX="193.0" layoutY="282.0" prefHeight="26.0" prefWidth="139.0" />
+      <HBox layoutX="456.0" layoutY="282.0" prefHeight="26.0" prefWidth="323.0">
+         <children>
+            <Label prefHeight="22.0" prefWidth="174.0" text="Date">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </Label>
+            <Label fx:id="lblUsageDate" prefHeight="26.0" prefWidth="153.0" />
+         </children>
+      </HBox>
+      <Label layoutX="56.0" layoutY="345.0" text="Quantity used">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="txtQuantityUsed" layoutX="193.0" layoutY="343.0" prefHeight="26.0" prefWidth="257.0" />
+      <Label fx:id="lblUsageUnit" layoutX="470.0" layoutY="347.0" prefHeight="26.0" prefWidth="95.0" />
+      <TableView fx:id="tblMaterialUsage" layoutX="157.0" layoutY="465.0" onMouseClicked="#onClickTable" prefHeight="140.0" prefWidth="941.0" style="-fx-border-color: #f6b93b;">
+        <columns>
+          <TableColumn fx:id="colUsageId" prefWidth="127.0" text="Usage ID" />
+          <TableColumn fx:id="colUsageProjectId" prefWidth="174.0" text="Project ID" />
+            <TableColumn fx:id="colUsageMaterialId" prefWidth="202.0" text="Material ID" />
+            <TableColumn fx:id="colUsageDate" prefWidth="207.0" text="Date" />
+            <TableColumn fx:id="colQuantityUsed" prefWidth="244.0" text="Quantity used" />
+        </columns>
+      </TableView>
+      <JFXButton fx:id="btnUsageReset" focusTraversable="false" layoutX="170.0" layoutY="409.0" onAction="#onUsageResetAction" style="-fx-background-color: #fed330; -fx-background-radius: 20;" text="Reset">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnUsageUpdate" focusTraversable="false" layoutX="734.0" layoutY="409.0" onAction="#onUsageUpdateAction" style="-fx-background-color: #fed330; -fx-background-radius: 20;" text="Update">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnUsageSave" focusTraversable="false" layoutX="474.0" layoutY="409.0" onAction="#onUsageSaveAction" style="-fx-background-color: #fed330; -fx-background-radius: 20;" text="Save">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnUsageDelete" focusTraversable="false" layoutX="1002.0" layoutY="409.0" onAction="#onUsageDeleteAction" style="-fx-background-color: #fed330; -fx-background-radius: 20;" text="Delete">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="btnBackUsage" layoutX="50.0" layoutY="28.0" onAction="#onBackUsageAction" prefHeight="30.0" prefWidth="61.0" style="-fx-background-color: #f6e58d;" text="Back">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </JFXButton>
+      <ImageView fitHeight="30.0" fitWidth="33.0" layoutX="20.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/backArrow.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

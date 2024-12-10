@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="loginAnchorPane" opacity="0.95" prefHeight="517.0" prefWidth="1143.0" style="-fx-background-color: #f1f2f6; -fx-background-radius: 20; -fx-border-color: #fff200; -fx-border-width: 10; -fx-border-radius: 20;" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.LoginFormController">
+   <children>
+      <JFXTextField focusTraversable="false" labelFloat="true" layoutX="96.0" layoutY="305.0" prefHeight="26.0" prefWidth="241.0" promptText="Password" />
+      <ImageView fitHeight="416.0" fitWidth="681.0" layoutX="432.0" layoutY="51.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/LoginAi.jpg" />
+         </image>
+      </ImageView>
+      <Label layoutX="117.0" layoutY="34.0" text="WELCOME BACK" textFill="#bfd009">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="149.0" layoutY="70.0" text="BUILD MASTER" textFill="#326b9a">
+         <font>
+            <Font name="DejaVuMathTeXGyre-Regular" size="15.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="110.0" fitWidth="124.0" layoutX="151.0" layoutY="106.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/minilogo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="57.0" layoutY="215.0" prefHeight="52.0" prefWidth="306.0" style="-fx-background-color: #dfe4ea; -fx-background-radius: 15;" />
+      <Label layoutX="57.0" layoutY="292.0" prefHeight="52.0" prefWidth="306.0" style="-fx-background-color: #dfe4ea; -fx-background-radius: 15;" />
+      <ImageView fitHeight="19.0" fitWidth="17.0" layoutX="68.0" layoutY="232.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/email.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="35.0" fitWidth="23.0" layoutX="65.0" layoutY="307.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/password.png" />
+         </image>
+      </ImageView>
+      <JFXTextField fx:id="txtEmail" focusTraversable="false" labelFloat="true" layoutX="96.0" layoutY="228.0" prefHeight="26.0" prefWidth="235.0" promptText="Email" />
+      <JFXPasswordField fx:id="passwordField" focusTraversable="false" labelFloat="true" layoutX="96.0" layoutY="305.0" prefHeight="26.0" prefWidth="235.0" promptText="Password" />
+      <Hyperlink focusTraversable="false" layoutX="247.0" layoutY="344.0" onAction="#onForgotPasswordAction" text="Forgot Password" />
+      <JFXButton fx:id="btnSignin" focusTraversable="false" layoutX="133.0" layoutY="394.0" onAction="#onSignAction" prefHeight="39.0" prefWidth="155.0" style="-fx-background-color: #fed330; -fx-background-radius: 20;" text="Sign in">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </JFXButton>
+      <ImageView fitHeight="20.0" fitWidth="23.0" layoutX="331.0" layoutY="309.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/eye.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

@@ -1,0 +1,114 @@
+/* Global Styles */
+* {
+    -fx-font-family: "Segoe UI", sans-serif;
+}
+
+/* Button Styles */
+.button {
+    -fx-background-color: #4CAF50; /* Primary button color */
+    -fx-text-fill: white;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-background-radius: 20;
+    -fx-border-radius: 20;
+    -fx-border-color: #2E7D32; /* Darker shade for border */
+    -fx-border-width: 2px;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #45A049; /* Slightly lighter green */
+}
+
+.button:pressed {
+    -fx-background-color: #388E3C; /* Darker shade for pressed effect */
+}
+
+/*!* TextField and PasswordField Styles *!*/
+/*.text-field, .password-field {*/
+/*    -fx-background-color: #f1f1f1;*/
+/*    -fx-border-color: #cccccc;*/
+/*    -fx-border-radius: 10;*/
+/*    -fx-padding: 8px;*/
+/*    -fx-prompt-text-fill: #aaaaaa; !* Placeholder color *!*/
+/*    -fx-font-size: 14px;*/
+/*}*/
+
+.text-field:focused, .password-field:focused {
+    -fx-border-color: #4CAF50; /* Border color on focus */
+}
+
+/* Label Styles */
+.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #333333;
+    -fx-font-weight: bold;
+}
+
+/* Alert Dialogs */
+.dialog-pane .content.label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #555555;
+}
+
+.dialog-pane .header-panel {
+    -fx-background-color: #4CAF50;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.dialog-pane .header-label {
+    -fx-text-fill: white;
+}
+
+/* Pane Styles */
+.pane {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15;
+    -fx-border-color: #dddddd;
+    -fx-border-width: 1;
+    -fx-padding: 20px;
+}
+
+/* Hyperlink Styles */
+.hyperlink {
+    -fx-text-fill: #4CAF50;
+    -fx-underline: true;
+}
+
+.hyperlink:hover {
+    -fx-text-fill: #388E3C; /* Darker shade on hover */
+}
+
+/* ImageView Styles */
+.image-view {
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 10, 0.5, 0, 4);
+}
+
+/* Tooltip Styles */
+.tooltip {
+    -fx-background-color: #333333;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+}
+
+/* Apply styles to buttons with specific IDs (e.g., Sign-in, Continue) */
+#btnSignin, #btnGetOtp, #btnSavePassword, #btnContinue {
+    -fx-background-color: #FFC107; /* Distinct color for action buttons */
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+}
+
+#btnSignin:hover, #btnGetOtp:hover, #btnSavePassword:hover, #btnContinue:hover {
+    -fx-background-color: #FFA000; /* Slightly darker on hover */
+}
+
+/* Pane specifically for Login or Dialog backgrounds */
+.anchor-pane {
+    -fx-background-color: #f9f9f9;
+    -fx-background-radius: 20;
+    -fx-border-color: #ddd;
+    -fx-border-width: 2px;
+    -fx-padding: 15px;
+}

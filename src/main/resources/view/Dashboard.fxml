@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXListView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="dashboardForm" prefHeight="656.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.DashboardController">
+   <children>
+      <Label layoutX="46.0" layoutY="280.0" prefHeight="346.0" prefWidth="688.0" style="-fx-background-color: #F8EFBA; -fx-background-radius: 15;" />
+      <Label layoutX="405.0" layoutY="59.0" prefHeight="190.0" prefWidth="328.0" style="-fx-background-color: #F8EFBA; -fx-background-radius: 15;" />
+      <Label layoutX="788.0" layoutY="129.0" prefHeight="432.0" prefWidth="328.0" style="-fx-background-color: #F8EFBA; -fx-background-radius: 15;" />
+      <Label fx:id="label" focusTraversable="false" layoutX="46.0" layoutY="50.0" prefHeight="199.0" prefWidth="285.0" style="-fx-background-color: #F8EFBA; -fx-background-radius: 15;" />
+      <JFXListView fx:id="listAllProject" focusTraversable="false" layoutX="65.0" layoutY="86.0" prefHeight="150.0" prefWidth="248.0" style="-fx-background-color: #F8EFBA; -fx-background-radius: 15;" />
+      <Label alignment="CENTER" focusTraversable="false" layoutX="65.0" layoutY="63.0" prefHeight="23.0" prefWidth="248.0" text="Avalable Project Name">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblDate" alignment="CENTER" focusTraversable="false" layoutX="814.0" layoutY="54.0" prefHeight="42.0" prefWidth="275.0" style="-fx-background-color: #F8EFBA; -fx-background-radius: 15;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="139.0" fitWidth="155.0" layoutX="441.0" layoutY="85.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/ClientImage.png" />
+         </image>
+      </ImageView>
+      <Label fx:id="lblClientCount" layoutX="616.0" layoutY="129.0" prefHeight="42.0" prefWidth="81.0">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" focusTraversable="false" layoutX="445.0" layoutY="75.0" prefHeight="23.0" prefWidth="248.0" text="Total Client Count">
+         <font>
+            <Font name="System Bold" size="13.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="92.0" fitWidth="115.0" layoutX="828.0" layoutY="195.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../gif/income.gif" />
+         </image>
+      </ImageView>
+      <Label layoutX="927.0" layoutY="195.0" prefHeight="33.0" prefWidth="139.0" text="Total Cash receipts">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTotalIncome" layoutX="937.0" layoutY="233.0" prefHeight="23.0" prefWidth="82.0" />
+      <ImageView fitHeight="92.0" fitWidth="115.0" layoutX="828.0" layoutY="314.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../gif/expenses.gif" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="92.0" fitWidth="115.0" layoutX="828.0" layoutY="434.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../gif/profit.gif" />
+         </image>
+      </ImageView>
+      <Label layoutX="927.0" layoutY="314.0" prefHeight="33.0" prefWidth="115.0" text="Total Expenses">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="927.0" layoutY="435.0" prefHeight="33.0" prefWidth="115.0" text="Total Profit">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblTotalExpenses" layoutX="927.0" layoutY="349.0" prefHeight="23.0" prefWidth="82.0" />
+      <Label fx:id="lblTotalProfit" layoutX="927.0" layoutY="469.0" prefHeight="23.0" prefWidth="82.0" />
+      <TableView fx:id="projectExpensesTable" focusTraversable="false" layoutX="75.0" layoutY="313.0" prefHeight="277.0" prefWidth="630.0" style="-fx-border-color: #ffff;">
+        <columns>
+          <TableColumn fx:id="colProjectID" prefWidth="118.0" text="Project ID" />
+          <TableColumn fx:id="colProjectName" prefWidth="127.0" text="Project Name" />
+            <TableColumn fx:id="colTotalExpenses" prefWidth="133.0" text="Total Employee Expenses" />
+            <TableColumn fx:id="colTotalMaterialCost" prefWidth="132.0" text="Total Material Cost" />
+            <TableColumn fx:id="colProjectTotalCost" prefWidth="118.0" text="Total Cost" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

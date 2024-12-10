@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="paymentTablePane" prefHeight="427.0" prefWidth="649.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.AllPaymentTableController">
+    <children>
+        <TableView fx:id="tblPayment" prefHeight="400.0" prefWidth="651.0">
+            <columns>
+                <TableColumn fx:id="colPaymentId" prefWidth="122.0" text="Payment ID" />
+                <TableColumn fx:id="colProjectId" prefWidth="128.0" text="Project ID" />
+                <TableColumn fx:id="colPaymentDate" prefWidth="150.0" text="Date" />
+                <TableColumn fx:id="colPaymentType" prefWidth="137.0" text="Type" />
+                <TableColumn fx:id="colPaymentAmount" prefWidth="113.0" text="Amount" />
+            </columns>
+        </TableView>
+        <JFXButton fx:id="btnCloseTable" layoutX="577.0" layoutY="400.0" onAction="#onClientTableClose" prefHeight="27.0" prefWidth="74.0" style="-fx-background-color: #ff3f34;" text="Close" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font></JFXButton>
+    </children>
+
+</AnchorPane>

@@ -1,0 +1,141 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="AllExpensesReport" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="666b928b-ad6f-4139-81ce-1722d82a2162">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="BuildMasterExpenses"/>
+	<parameter name="P_Date" class="java.lang.String"/>
+	<query language="SQL"><![CDATA[SELECT
+    P.Project_ID,
+    P.Name AS Project_Name,
+    COALESCE(SUM(E.Amount), 0) AS Total_Expenses,
+    COALESCE(SUM(MU.Quantity_used * MB.Unit_Amount), 0) AS Total_Material_Cost,
+    COALESCE(SUM(E.Amount), 0) + COALESCE(SUM(MU.Quantity_used * MB.Unit_Amount), 0) AS Project_Total_Cost
+FROM
+    Project P
+        LEFT JOIN
+    Expenses E ON P.Project_ID = E.Project_ID
+        LEFT JOIN
+    MaterialUsage MU ON P.Project_ID = MU.Project_ID
+        LEFT JOIN
+    MaterialBuy MB ON MU.Material_ID = MB.Material_ID
+GROUP BY
+    P.Project_ID, P.Name
+ORDER BY
+    Project_Total_Cost DESC]]></query>
+	<field name="Project_ID" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Project_ID"/>
+		<property name="com.jaspersoft.studio.field.label" value="Project_ID"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Project"/>
+	</field>
+	<field name="Project_Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="Project_Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Project"/>
+	</field>
+	<field name="Total_Expenses" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Total_Expenses"/>
+		<property name="com.jaspersoft.studio.field.label" value="Total_Expenses"/>
+	</field>
+	<field name="Total_Material_Cost" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Total_Material_Cost"/>
+		<property name="com.jaspersoft.studio.field.label" value="Total_Material_Cost"/>
+	</field>
+	<field name="Project_Total_Cost" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="Project_Total_Cost"/>
+		<property name="com.jaspersoft.studio.field.label" value="Project_Total_Cost"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="79" splitType="Stretch">
+		<element kind="staticText" uuid="9110280e-ac50-4b06-a286-84224e453ffd" x="0" y="0" width="550" height="70" fontSize="22.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Project Total Cost]]></text>
+		</element>
+	</title>
+	<pageHeader height="35" splitType="Stretch">
+		<element kind="textField" uuid="63a686f2-55ea-458b-abd8-c1af5b702eaf" x="333" y="2" width="197" height="30" fontSize="12.0" bold="true" hTextAlign="Right" vTextAlign="Middle">
+			<expression><![CDATA[$P{P_Date}]]></expression>
+		</element>
+	</pageHeader>
+	<columnHeader height="61" splitType="Stretch">
+		<element kind="staticText" uuid="6686d38a-24b9-4633-b891-a87e228beef5" x="0" y="30" width="111" height="30" markup="" fontSize="11.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Project_ID]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3785ddfc-b393-4620-b43a-5bf838607c7c"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+
+		</element>
+		<element kind="staticText" uuid="6f484b84-33ee-4637-867e-eba60cdacdb4" x="111" y="30" width="111" height="30" markup="" fontSize="11.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Project_Name]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c2b28ce-6e25-422b-b151-86977df58842"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="bb703fdf-0635-46af-b644-d079657c1632" x="222" y="30" width="111" height="30" markup="" fontSize="11.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Total_Expenses]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8cb4da69-4b6c-4628-89d6-88920dc081fd"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="f9aae280-e25b-4faf-ba05-058393ada011" x="333" y="30" width="111" height="30" markup="" fontSize="11.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Total_Material_Cost]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d3d5c72-fa86-411b-9cfe-6efcf3a7ffcc"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="a2659ee4-a94b-4851-9ebf-b670a3cbc6dd" x="444" y="30" width="111" height="30" markup="" fontSize="11.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Project_Total_Cost]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="24fd87e4-9dcc-4b41-9cdd-31f63aa4267a"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<element kind="textField" uuid="8e96f813-a764-40bd-9e43-34338e283574" x="0" y="0" width="111" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Project_ID}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="3785ddfc-b393-4620-b43a-5bf838607c7c"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="617406c4-fb8b-4b7c-b385-315bb742e3f1" x="111" y="0" width="111" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Project_Name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c2b28ce-6e25-422b-b151-86977df58842"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="83cfd243-1dea-4224-b0ec-1f792e58d12d" x="222" y="0" width="111" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Total_Expenses}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8cb4da69-4b6c-4628-89d6-88920dc081fd"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="2f943b48-f874-424c-aa88-cdfb7f5812bd" x="333" y="0" width="111" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Total_Material_Cost}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="6d3d5c72-fa86-411b-9cfe-6efcf3a7ffcc"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="993711ea-0800-4bfc-a6c7-b8278890d526" x="444" y="0" width="111" height="30" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Project_Total_Cost}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="24fd87e4-9dcc-4b41-9cdd-31f63aa4267a"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="45" splitType="Stretch"/>
+	<pageFooter height="54" splitType="Stretch">
+		<element kind="staticText" uuid="11243773-70a9-4bf1-a27c-63902cc2d5ea" x="227" y="0" width="100" height="30" fontName="DejaVu Sans" fontSize="12.0" bold="true" italic="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[End]]></text>
+		</element>
+	</pageFooter>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>

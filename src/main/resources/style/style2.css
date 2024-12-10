@@ -1,0 +1,58 @@
+/* General body style */
+.root {
+    -fx-background-color: white;
+    -fx-font-family: "Arial", sans-serif;
+}
+
+/* Style for JFXButton */
+.jfx-button {
+    -fx-background-color: linear-gradient(to right, #FFD700, #FF8C00); /* Yellow to Orange gradient */
+    -fx-background-radius: 25px; /* Rounded corners */
+    -fx-text-fill: black;
+    -fx-font-size: 16px;
+    -fx-padding: 10px 20px;
+    -fx-border-radius: 25px;
+    -fx-border-width: 2px;
+    -fx-border-color: black;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2);
+}
+
+/* Button hover effect */
+.jfx-button:hover {
+    -fx-background-color: linear-gradient(to right, #FF8C00, #FFD700); /* Reverse gradient on hover */
+    -fx-text-fill: white;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0, 2, 2);
+}
+
+/* Button click effect */
+.jfx-button:pressed {
+    -fx-background-color: linear-gradient(to right, #FFA500, #FF4500); /* Darker gradient on press */
+    -fx-border-color: #D2691E; /* Darker border on press */
+}
+
+/* Style for JFXTextField */
+.jfx-text-field {
+    -fx-background-color: white;
+    -fx-text-fill: black;
+    -fx-border-color: #FFD700; /* Yellow border */
+    -fx-border-radius: 10px;
+    -fx-border-width: 2px;
+    -fx-padding: 10px;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 5, 0, 2, 2);
+}
+
+/* TextField focus effect */
+.jfx-text-field:focused {
+    -fx-border-color: #FF8C00; /* Orange border when focused */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.2), 5, 0, 2, 2);
+}
+
+/* Placeholder text color for TextField */
+.jfx-text-field .text-field .text {
+    -fx-fill: black;
+}
+
+.jfx-text-field .text-field .prompt-text {
+    -fx-fill: gray; /* Color of the placeholder */
+}

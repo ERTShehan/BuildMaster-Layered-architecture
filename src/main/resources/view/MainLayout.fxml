@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1300.0" style="-fx-border-color: #FFD54F; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.MainLayoutController">
+   <children>
+      <Label layoutX="32.0" layoutY="14.0" text="BUILD MASTER" textFill="#d5e80a">
+         <font>
+            <Font name="Chandas" size="14.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="48.0" fitWidth="53.0" layoutX="151.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../images/minilogo.png" />
+         </image>
+      </ImageView>
+      <Line endX="63.0" layoutX="127.0" layoutY="60.0" startX="-100.0" />
+      <Line endX="-100.0" endY="558.0" layoutX="300.0" layoutY="52.0" startX="-100.0" startY="11.0" />
+      <AnchorPane fx:id="content" layoutX="204.0" prefHeight="611.0" prefWidth="1097.0" />
+      <JFXButton fx:id="btnLogout" focusTraversable="false" layoutX="55.0" layoutY="585.0" onAction="#onLogoutAction" prefHeight="26.0" prefWidth="109.0" style="-fx-background-color: #b2bec3;" text="Log Out" />
+      <JFXButton fx:id="btnDashboard" focusTraversable="false" layoutX="21.0" layoutY="84.0" onAction="#onDashboardAction" prefHeight="34.0" prefWidth="176.0" style="-fx-background-color: #fdcb6e; -fx-background-radius: 50;" text="Dashboard" />
+      <JFXButton fx:id="btnClient" focusTraversable="false" layoutX="21.0" layoutY="130.0" onAction="#onClientAction" prefHeight="34.0" prefWidth="176.0" style="-fx-background-color: #fdcb6e; -fx-background-radius: 50;" text="Client" />
+      <JFXButton fx:id="btnProject" focusTraversable="false" layoutX="21.0" layoutY="174.0" onAction="#onProjectAction" prefHeight="34.0" prefWidth="176.0" style="-fx-background-color: #fdcb6e; -fx-background-radius: 50;" text="Project" />
+      <JFXButton fx:id="btnPayment" focusTraversable="false" layoutX="21.0" layoutY="217.0" onAction="#onPaymentAction" prefHeight="34.0" prefWidth="176.0" style="-fx-background-color: #fdcb6e; -fx-background-radius: 50;" text="Payment" />
+      <JFXButton fx:id="btnEmployee" focusTraversable="false" layoutX="21.0" layoutY="260.0" onAction="#onEmployeeAction" prefHeight="34.0" prefWidth="176.0" style="-fx-background-color: #fdcb6e; -fx-background-radius: 50;" text="Employee" />
+      <JFXButton fx:id="btnMachine" focusTraversable="false" layoutX="21.0" layoutY="306.0" onAction="#onMachineAction" prefHeight="34.0" prefWidth="176.0" style="-fx-background-color: #fdcb6e; -fx-background-radius: 50;" text="Machine" />
+      <JFXButton fx:id="btnExpenses" focusTraversable="false" layoutX="21.0" layoutY="351.0" onAction="#onExpensesAction" prefHeight="34.0" prefWidth="176.0" style="-fx-background-color: #fdcb6e; -fx-background-radius: 50;" text="Expenses" />
+      <JFXButton fx:id="btnMaterials" focusTraversable="false" layoutX="21.0" layoutY="396.0" onAction="#onMaterialAction" prefHeight="34.0" prefWidth="176.0" style="-fx-background-color: #fdcb6e; -fx-background-radius: 50;" text="Materials" />
+      <JFXButton fx:id="btnSupplier" focusTraversable="false" layoutX="21.0" layoutY="441.0" onAction="#onSupplierAction" prefHeight="34.0" prefWidth="176.0" style="-fx-background-color: #fdcb6e; -fx-background-radius: 50;" text="Supplier" />
+      <JFXButton fx:id="btnReport" focusTraversable="false" layoutX="21.0" layoutY="486.0" onAction="#onReportAction" prefHeight="34.0" prefWidth="176.0" style="-fx-background-color: #fdcb6e; -fx-background-radius: 50;" text="Report" />
+   </children>
+</AnchorPane>

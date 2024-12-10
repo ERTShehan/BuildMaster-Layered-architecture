@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="427.0" prefWidth="890.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.AllProjectsTableController">
+
+    <children>
+        <TableView fx:id="tblProjects" prefHeight="400.0" prefWidth="890.0">
+            <columns>
+                <TableColumn fx:id="colProjectId" prefWidth="100.0" text="Project ID" />
+                <TableColumn fx:id="colProjectName" prefWidth="150.0" text="Project Name" />
+                <TableColumn fx:id="colProjectStart" prefWidth="150.0" text="Start Date" />
+                <TableColumn fx:id="colProjectEnd" prefWidth="100.0" text="End Date" />
+                <TableColumn fx:id="colProjectType" prefWidth="127.0" text="Type" />
+                <TableColumn fx:id="colProjectStatus" prefWidth="122.0" text="Status" />
+                <TableColumn fx:id="colClientId" prefWidth="142.0" text="Client ID" />
+            </columns>
+        </TableView>
+        <JFXButton fx:id="btnCloseTable" layoutX="816.0" layoutY="400.0" onAction="#onProjectTableClose" prefHeight="27.0" prefWidth="74.0" style="-fx-background-color: #ff3f34;" text="Close" textFill="WHITE">
+            <font>
+                <Font name="System Bold" size="13.0" />
+            </font></JFXButton>
+    </children>
+
+</AnchorPane>

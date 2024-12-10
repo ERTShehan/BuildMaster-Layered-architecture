@@ -1,0 +1,94 @@
+<!-- Created with Jaspersoft Studio version 7.0.0.final using JasperReports Library version 7.0.0-b478feaa9aab4375eba71de77b4ca138ad2f62aa  -->
+<jasperReport name="ClientReport" language="java" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2bbaad65-40cf-459a-ac7c-d14439a44b17">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="Build Master Client"/>
+	<query language="SQL"><![CDATA[SELECT 
+    c.Name AS Client_Name,
+    p.Name AS Project_Name,
+    SUM(pay.Amount) AS Total_Payment
+FROM 
+    Client c
+JOIN 
+    Project p ON c.Client_ID = p.Client_ID
+JOIN 
+    Payment pay ON p.Project_ID = pay.Project_ID
+GROUP BY 
+    c.Client_ID, p.Project_ID
+]]></query>
+	<field name="Client_Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="Client_Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Client"/>
+	</field>
+	<field name="Project_Name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Name"/>
+		<property name="com.jaspersoft.studio.field.label" value="Project_Name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="Project"/>
+	</field>
+	<field name="Total_Payment" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Total_Payment"/>
+		<property name="com.jaspersoft.studio.field.label" value="Total_Payment"/>
+	</field>
+	<background splitType="Stretch"/>
+	<title height="79" splitType="Stretch">
+		<element kind="staticText" uuid="adea29e2-99cb-474c-a9d9-2479e07def00" x="0" y="0" width="544" height="60" markup="styled" fontSize="24.0" bold="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Client Report]]></text>
+		</element>
+	</title>
+	<pageHeader height="35" splitType="Stretch"/>
+	<columnHeader height="61" splitType="Stretch">
+		<element kind="staticText" uuid="a871fefb-a45f-4a5b-aa41-873714138eb9" x="0" y="31" width="185" height="30" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Client_Name]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="13ec2204-2f27-45bd-902e-a58f6f69235f"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="95b06428-e96d-44e6-b9fa-2b1a690da049" x="185" y="31" width="185" height="30" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Project_Name]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bc821054-e63f-4eeb-bd9f-a3b8a7fc7e66"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+		<element kind="staticText" uuid="0c16fe1b-c6b2-4b4e-b33b-2975ddf1a07f" x="370" y="31" width="185" height="30" fontSize="14.0" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[Total_Payment]]></text>
+			<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="77ac0760-5684-40d8-968c-fe1f506b33f4"/>
+			<box>
+				<pen lineWidth="1.0"/>
+			</box>
+		</element>
+	</columnHeader>
+	<detail>
+		<band height="125" splitType="Stretch">
+			<element kind="textField" uuid="9e402bd4-49d0-4cb2-95d1-f32a5deba63c" x="0" y="0" width="185" height="30" fontSize="12.0" evaluationTime="Report" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Client_Name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="13ec2204-2f27-45bd-902e-a58f6f69235f"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="7ee2704e-00d2-4e7a-9ecd-e76a56acc3aa" x="185" y="0" width="185" height="30" fontSize="12.0" evaluationTime="Report" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Project_Name}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="bc821054-e63f-4eeb-bd9f-a3b8a7fc7e66"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+			</element>
+			<element kind="textField" uuid="378a9635-4ff1-4bb4-8d12-bf31035f0976" x="370" y="0" width="185" height="30" fontSize="12.0" evaluationTime="Report" hTextAlign="Center" vTextAlign="Middle">
+				<expression><![CDATA[$F{Total_Payment}]]></expression>
+				<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="77ac0760-5684-40d8-968c-fe1f506b33f4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+			</element>
+		</band>
+	</detail>
+	<columnFooter height="56" splitType="Stretch">
+		<element kind="staticText" uuid="43543b01-18a9-4779-98ee-c45f1f3b2e84" x="230" y="20" width="100" height="30" fontSize="16.0" bold="true" italic="true" hTextAlign="Center" vTextAlign="Middle">
+			<text><![CDATA[End]]></text>
+		</element>
+	</columnFooter>
+	<pageFooter height="54" splitType="Stretch"/>
+	<summary height="42" splitType="Stretch"/>
+</jasperReport>
