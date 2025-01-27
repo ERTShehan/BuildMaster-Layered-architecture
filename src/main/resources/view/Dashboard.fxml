@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="dashboardForm" prefHeight="656.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.DashboardController">
+<AnchorPane fx:id="dashboardForm" prefHeight="656.0" prefWidth="1300.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmaster.controller.DashboardController">
    <children>
       <Label layoutX="46.0" layoutY="280.0" prefHeight="346.0" prefWidth="688.0" style="-fx-background-color: #F8EFBA; -fx-background-radius: 15;" />
       <Label layoutX="405.0" layoutY="59.0" prefHeight="190.0" prefWidth="328.0" style="-fx-background-color: #F8EFBA; -fx-background-radius: 15;" />

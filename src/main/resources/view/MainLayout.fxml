@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="1300.0" style="-fx-border-color: #FFD54F; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.MainLayoutController">
+<AnchorPane prefHeight="600.0" prefWidth="1300.0" style="-fx-border-color: #FFD54F; -fx-border-width: 10;" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmaster.controller.MainLayoutController">
    <children>
       <Label layoutX="32.0" layoutY="14.0" text="BUILD MASTER" textFill="#d5e80a">
          <font>

@@ -13,7 +13,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="materialUsagePane" prefHeight="620.0" prefWidth="1276.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.MaterialUsageController">
+<AnchorPane fx:id="materialUsagePane" prefHeight="620.0" prefWidth="1276.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmaster.controller.MaterialUsageController">
    <children>
       <Label layoutX="182.0" layoutY="336.0" prefHeight="40.0" prefWidth="275.0" style="-fx-border-color: #1e272e; -fx-border-radius: 10;" />
       <Label layoutX="485.0" layoutY="52.0" text="Material Usage">

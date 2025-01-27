@@ -14,7 +14,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="buyMaterialPane" prefHeight="620.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmasternew.controller.MaterialBuyController">
+<AnchorPane fx:id="buyMaterialPane" prefHeight="620.0" prefWidth="1250.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.assignment.buildmaster.controller.MaterialBuyController">
    <children>
       <Label layoutX="567.0" layoutY="346.0" prefHeight="40.0" prefWidth="158.0" style="-fx-border-color: #1e272e; -fx-border-radius: 10;" />
       <Label layoutX="192.0" layoutY="346.0" prefHeight="40.0" prefWidth="208.0" style="-fx-border-color: #1e272e; -fx-border-radius: 10;" />

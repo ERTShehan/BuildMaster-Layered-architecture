@@ -1,4 +1,4 @@
-module com.assignment.buildmasternew {
+module com.assignment.buildmaster {
     requires javafx.controls;
     requires javafx.fxml;
     requires com.jfoenix;
@@ -7,8 +7,8 @@ module com.assignment.buildmasternew {
     requires java.mail;
     requires net.sf.jasperreports.core;
 
-    opens com.assignment.buildmasternew.dto to javafx.base;
-    opens com.assignment.buildmasternew.controller to javafx.fxml;
-    exports com.assignment.buildmasternew;
-    opens com.assignment.buildmasternew.dto.tm to javafx.base;
+    opens com.assignment.buildmaster.dto to javafx.base;
+    opens com.assignment.buildmaster.controller to javafx.fxml;
+    exports com.assignment.buildmaster;
+    opens com.assignment.buildmaster.view.tdm to javafx.base;
 }
