@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.dao.custom.Impl;
 
+import com.assignment.buildmaster.dao.custom.ProjectDAO;
 import com.assignment.buildmaster.dto.ProjectDto;
 import com.assignment.buildmaster.dao.SQLUtil;
 
@@ -8,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProjectDAOImpl {
-    public String getNextProjectId() throws SQLException {
+public class ProjectDAOImpl implements ProjectDAO {
+    public String getNextId() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Project_ID from Project order by Project_ID desc limit 1");
 
         if (rst.next()) {
@@ -22,7 +23,7 @@ public class ProjectDAOImpl {
         return "P001";
     }
 
-    public ArrayList<String> getAllProjectIds() throws SQLException {
+    public ArrayList<String> getAllIds() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Project_ID from Project");
         ArrayList<String> projectIds = new ArrayList<>();
 
@@ -33,7 +34,7 @@ public class ProjectDAOImpl {
         return projectIds;
     }
 
-    public ProjectDto findByProjectId(String projectId) throws SQLException {
+    public ProjectDto findById(String projectId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM Project WHERE Project_ID=?", projectId);
         if (rst.next()) {
             return new ProjectDto(
@@ -49,7 +50,7 @@ public class ProjectDAOImpl {
         return null;
     }
 
-    public String findClientNameById(String clientId) throws SQLException {
+    public String findNameById(String clientId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT Name FROM Client WHERE Client_ID=?", clientId);
         if (rst.next()) {
             return rst.getString(1);
@@ -57,7 +58,7 @@ public class ProjectDAOImpl {
         return null;
     }
 
-    public ArrayList<String> getAllProjectIdsByClient(String clientId) throws SQLException {
+    public ArrayList<String> getAllIdsBy(String clientId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT Project_ID FROM Project WHERE Client_ID=?", clientId);
         ArrayList<String> projectIds = new ArrayList<>();
         while (rst.next()) {
@@ -66,7 +67,7 @@ public class ProjectDAOImpl {
         return projectIds;
     }
 
-    public ArrayList<String> getAllClientIds() throws SQLException {
+    public ArrayList<String> findAllIds() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Client_ID from Client");
         ArrayList<String> clientIds = new ArrayList<>();
 
@@ -77,7 +78,7 @@ public class ProjectDAOImpl {
         return clientIds;
     }
 
-    public boolean saveProject(ProjectDto projectDto) throws SQLException {
+    public boolean save(ProjectDto projectDto) throws SQLException {
         return SQLUtil.execute(
                 "INSERT INTO Project (Project_ID, Name, Start_date, End_date, Type, Status, Client_ID) VALUES (?, ?, ?, ?, ?, ?, ?)",
                 projectDto.getProjectId(),
@@ -90,7 +91,7 @@ public class ProjectDAOImpl {
         );
     }
 
-    public boolean updateProject(ProjectDto projectDto) throws SQLException {
+    public boolean update(ProjectDto projectDto) throws SQLException {
         return SQLUtil.execute(
                 "update Project set name=?, Start_date=?, End_date=?, Type=?, Status=? where Project_ID=?",
                 projectDto.getProjectName(),
@@ -103,12 +104,12 @@ public class ProjectDAOImpl {
         );
     }
 
-    public boolean deleteProject(String projectId) throws SQLException {
+    public boolean delete(String projectId) throws SQLException {
         String sql = "DELETE FROM Project WHERE Project_ID=?";
         return SQLUtil.execute(sql, projectId);
     }
 
-    public List<ProjectDto> getAllProjects() throws SQLException {
+    public List<ProjectDto> getAll() throws SQLException {
         ResultSet resultSet = SQLUtil.execute("SELECT * FROM Project order by Project_ID asc");
         List<ProjectDto> projectList = new ArrayList<>();
 
@@ -126,12 +127,22 @@ public class ProjectDAOImpl {
         return projectList;
     }
 
-    public String getProjectNameById(String projectId) throws SQLException {
+    @Override
+    public int getCount() throws SQLException {
+        return 0;
+    }
+
+    public String getInfo(String projectId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT Name FROM Project where Project_ID=?", projectId);
         if (rst.next()) {
             return rst.getString(1);
         }
         return null;
+    }
+
+    @Override
+    public String getUnit(String Id) throws SQLException {
+        return "";
     }
 
     public String getName(String projectId) throws SQLException {

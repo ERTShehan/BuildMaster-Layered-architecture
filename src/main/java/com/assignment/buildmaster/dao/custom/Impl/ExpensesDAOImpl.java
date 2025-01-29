@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.dao.custom.Impl;
 
+import com.assignment.buildmaster.dao.custom.ExpensesDAO;
 import com.assignment.buildmaster.dto.ExpensesDto;
 import com.assignment.buildmaster.dao.SQLUtil;
 
@@ -8,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ExpensesDAOImpl {
-    public String getNextExpensesId() throws SQLException {
+public class ExpensesDAOImpl implements ExpensesDAO {
+    public String getNextId() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Expense_ID from Expenses order by Expense_ID desc limit 1");
 
         if (rst.next()) {
@@ -22,7 +23,7 @@ public class ExpensesDAOImpl {
         return "EX01";
     }
 
-    public ArrayList<String> getAllExpensesIds() throws SQLException {
+    public ArrayList<String> getAllIds() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Expense_ID from Expenses");
         ArrayList<String> expensesIds = new ArrayList<>();
 
@@ -47,7 +48,7 @@ public class ExpensesDAOImpl {
         return null;
     }
 
-    public boolean saveExpenses(ExpensesDto expensesDto) throws SQLException {
+    public boolean save(ExpensesDto expensesDto) throws SQLException {
         return SQLUtil.execute(
                 "insert into Expenses values (?,?,?,?,?,?)",
                 expensesDto.getExpenseId(),
@@ -59,7 +60,7 @@ public class ExpensesDAOImpl {
         );
     }
 
-    public boolean updateExpenses(ExpensesDto expensesDto) throws SQLException {
+    public boolean update(ExpensesDto expensesDto) throws SQLException {
         return SQLUtil.execute(
                 "update Expenses set Type=?, Amount=?, Date=?, Project_ID=?, Employee_ID=? where Expense_ID=?",
                 expensesDto.getType(),
@@ -71,7 +72,7 @@ public class ExpensesDAOImpl {
         );
     }
 
-    public boolean deleteExpenses(String expenseId) throws SQLException {
+    public boolean delete(String expenseId) throws SQLException {
 //        String sql = "DELETE FROM Expenses WHERE Expense_ID=?";
 //        return CrudUtil.execute(sql, expenseId);
 
@@ -80,7 +81,7 @@ public class ExpensesDAOImpl {
         );
     }
 
-    public List<ExpensesDto> getAllExpenses() throws SQLException {
+    public List<ExpensesDto> getAll() throws SQLException {
         ResultSet resultSet = SQLUtil.execute("SELECT * FROM Expenses");
         List<ExpensesDto> expensesList = new ArrayList<>();
         while (resultSet.next()) {
@@ -94,5 +95,40 @@ public class ExpensesDAOImpl {
             ));
         }
         return expensesList;
+    }
+
+    @Override
+    public int getCount() throws SQLException {
+        return 0;
+    }
+
+    @Override
+    public String getName(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public String getInfo(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public String getUnit(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public ArrayList<String> findAllIds() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String findNameById(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
+        return null;
     }
 }

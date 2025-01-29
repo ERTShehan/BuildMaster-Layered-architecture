@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.dao.custom.PaymentDAO;
 import com.assignment.buildmaster.dto.PaymentDto;
 import com.assignment.buildmaster.view.tdm.PaymentTM;
 import com.assignment.buildmaster.dao.custom.Impl.PaymentDAOImpl;
@@ -43,7 +44,7 @@ public class AllPaymentTableController {
     @FXML
     private TableView<PaymentDto> tblPayment;
 
-    private final PaymentDAOImpl paymentDAOImpl = new PaymentDAOImpl();
+    PaymentDAO paymentDAO = new PaymentDAOImpl();
 
     public void initialize(){
         colPaymentId.setCellValueFactory(new PropertyValueFactory<>("paymentID"));
@@ -57,7 +58,7 @@ public class AllPaymentTableController {
 
     private void loadPaymentData(){
         try {
-            List<PaymentDto> payments = paymentDAOImpl.getAllPayments();
+            List<PaymentDto> payments = paymentDAO.getAll();
             ObservableList<PaymentDto> paymentList = FXCollections.observableArrayList(payments);
             tblPayment.setItems(paymentList);
         } catch (SQLException e) {

@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.dao.custom.MachineDAO;
 import com.assignment.buildmaster.dto.MachineDto;
 import com.assignment.buildmaster.dao.custom.Impl.MachineDAOImpl;
 import com.jfoenix.controls.JFXButton;
@@ -27,7 +28,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MachineFormController implements Initializable {
-    private final MachineDAOImpl machineDAOImpl = new MachineDAOImpl();
+    MachineDAO machineDAO = new MachineDAOImpl();
 
     @FXML
     private JFXButton btnMachineDelete;
@@ -60,7 +61,7 @@ public class MachineFormController implements Initializable {
     void cmbMachineOnAction(ActionEvent event) throws SQLException {
         String selectedMachineId = cmbMachineId.getSelectionModel().getSelectedItem();
         if (selectedMachineId != null) {
-            MachineDto machineDto = machineDAOImpl.findById(selectedMachineId);
+            MachineDto machineDto = machineDAO.findById(selectedMachineId);
 
             if (machineDto != null) {
                 lblMachineID.setText(machineDto.getMachineId());
@@ -86,7 +87,7 @@ public class MachineFormController implements Initializable {
 
 
             if(buttonType.get() == ButtonType.YES){
-                boolean isDeleted = machineDAOImpl.deleteMachine(machineID);
+                boolean isDeleted = machineDAO.delete(machineID);
 
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Machine deleted successfully!").show();
@@ -136,7 +137,7 @@ public class MachineFormController implements Initializable {
         if (validation(machineName, machineStatus, machineDescription)) {
             MachineDto machineDto = new MachineDto(machineId, machineName, machineStatus, machineDescription);
 
-            boolean isSaved = machineDAOImpl.saveMachine(machineDto);
+            boolean isSaved = machineDAO.save(machineDto);
 
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Machine saved...!").show();
@@ -160,7 +161,7 @@ public class MachineFormController implements Initializable {
         if (validation(machineName, machineStatus, machineDescription)) {
             try {
                 MachineDto machineDto = new MachineDto(machineId, machineName, machineStatus, machineDescription);
-                boolean isUpdated = machineDAOImpl.updateMachine(machineDto);
+                boolean isUpdated = machineDAO.update(machineDto);
 
                 if (isUpdated) {
                     new Alert(Alert.AlertType.INFORMATION, "Machine updated successfully!").show();
@@ -212,7 +213,7 @@ public class MachineFormController implements Initializable {
     }
 
     private void refreshPage() throws SQLException {
-        String nextMachineID = machineDAOImpl.getNextMachineId();
+        String nextMachineID = machineDAO.getNextId();
         lblMachineID.setText(nextMachineID);
 
         loadMachineIds();
@@ -232,7 +233,7 @@ public class MachineFormController implements Initializable {
     }
 
     private void loadMachineIds() throws SQLException {
-        ArrayList<String> machineIds = machineDAOImpl.getAllMachineIds();
+        ArrayList<String> machineIds = machineDAO.getAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(machineIds);
         cmbMachineId.setItems(observableList);

@@ -1,5 +1,7 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.dao.custom.MaterialDAO;
+import com.assignment.buildmaster.dao.custom.MaterialUsageDAO;
 import com.assignment.buildmaster.dto.MaterialUsageDto;
 import com.assignment.buildmaster.view.tdm.MaterialUsageTM;
 import com.assignment.buildmaster.dao.custom.Impl.MaterialDAOImpl;
@@ -27,9 +29,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MaterialUsageController implements Initializable {
-    private final MaterialUsageDAOImpl materialUsageDAOImpl = new MaterialUsageDAOImpl();
+    MaterialUsageDAO materialUsageDAO = new MaterialUsageDAOImpl();
     private final ProjectDAOImpl projectDAOImpl = new ProjectDAOImpl();
-    private final MaterialDAOImpl materialDAOImpl = new MaterialDAOImpl();
+    MaterialDAO materialDAO = new MaterialDAOImpl();
 
     @FXML
     private JFXButton btnBackUsage;
@@ -111,8 +113,8 @@ public class MaterialUsageController implements Initializable {
     void cmbMaterialIdLoadUsage(ActionEvent event) throws SQLException {
         String selectedMaterialId = cmbMaterialIdUsage.getSelectionModel().getSelectedItem();
         if (selectedMaterialId != null) {
-            lblUsageUnit.setText(materialDAOImpl.getUnit(selectedMaterialId));
-            lblMaterialNameUsage.setText(materialDAOImpl.getName(selectedMaterialId));
+            lblUsageUnit.setText(materialDAO.getUnit(selectedMaterialId));
+            lblMaterialNameUsage.setText(materialDAO.getName(selectedMaterialId));
         }
 //        btnUsageSave.setDisable(false);
 
@@ -123,7 +125,7 @@ public class MaterialUsageController implements Initializable {
     void cmbProjectIdLoadUsage(ActionEvent event) throws SQLException {
         String selectedProjectId = cmbProjectIdUsage.getSelectionModel().getSelectedItem();
         if (selectedProjectId != null) {
-            lblProjectNameUsage.setText(projectDAOImpl.getProjectNameById(selectedProjectId));
+            lblProjectNameUsage.setText(projectDAOImpl.getInfo(selectedProjectId));
         }
 //        btnUsageSave.setDisable(false);
 
@@ -151,7 +153,7 @@ public class MaterialUsageController implements Initializable {
             Optional<ButtonType> buttonType = alert.showAndWait();
 
             if(buttonType.get() == ButtonType.YES){
-                boolean isDeleted = materialUsageDAOImpl.deleteUsage(usageId);
+                boolean isDeleted = materialUsageDAO.delete(usageId);
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Material Usage deleted successfully!").show();
                     refreshPage();
@@ -181,7 +183,7 @@ public class MaterialUsageController implements Initializable {
         if(validation(quantityUsed)) {
             try {
                 MaterialUsageDto materialUsageDto = new MaterialUsageDto(usageId, projectId, materialId, quantityUsed, date);
-                boolean isSaved = materialUsageDAOImpl.saveMaterialUsage(materialUsageDto);
+                boolean isSaved = materialUsageDAO.save(materialUsageDto);
 
                 if (isSaved) {
                     new Alert(Alert.AlertType.INFORMATION, "Material Usage saved...!").show();
@@ -223,7 +225,7 @@ public class MaterialUsageController implements Initializable {
         if(validation(quantityUsed)) {
             try {
                 MaterialUsageDto materialUsageDto = new MaterialUsageDto(usageId, projectId, materialId, quantityUsed, date);
-                boolean isUpdated = materialUsageDAOImpl.updateMaterialUsage(materialUsageDto);
+                boolean isUpdated = materialUsageDAO.update(materialUsageDto);
 
                 if (isUpdated) {
                     new Alert(Alert.AlertType.INFORMATION, "Material Usage saved...!").show();
@@ -255,7 +257,7 @@ public class MaterialUsageController implements Initializable {
 
     private void refreshPage() throws SQLException {
         refreshTable();
-        lblUsageID.setText(materialUsageDAOImpl.getNextUsageId());
+        lblUsageID.setText(materialUsageDAO.getNextId());
         loadProjectIds();
         loadMaterialIds();
         lblUsageDate.setText(LocalDate.now().toString());
@@ -267,7 +269,7 @@ public class MaterialUsageController implements Initializable {
         lblUsageID.setText("");
         lblUsageUnit.setText("");
         resetFieldStyles();
-        lblUsageID.setText(materialUsageDAOImpl.getNextUsageId());
+        lblUsageID.setText(materialUsageDAO.getNextId());
 
         btnUsageSave.setDisable(true);
         btnUsageUpdate.setDisable(true);
@@ -275,7 +277,7 @@ public class MaterialUsageController implements Initializable {
     }
 
     private void refreshTable() throws SQLException {
-        ArrayList<MaterialUsageDto> usageDTOS = (ArrayList<MaterialUsageDto>) materialUsageDAOImpl.getAllUsages();
+        ArrayList<MaterialUsageDto> usageDTOS = (ArrayList<MaterialUsageDto>) materialUsageDAO.getAll();
         ObservableList<MaterialUsageTM> usageTMS = FXCollections.observableArrayList();
         for (MaterialUsageDto materialUsageDto : usageDTOS){
             MaterialUsageTM materialUsageTM = new MaterialUsageTM(
@@ -292,14 +294,14 @@ public class MaterialUsageController implements Initializable {
     }
 
     private void loadProjectIds() throws SQLException {
-        ArrayList<String> projectIds = projectDAOImpl.getAllProjectIds();
+        ArrayList<String> projectIds = projectDAOImpl.getAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(projectIds);
         cmbProjectIdUsage.setItems(observableList);
     }
 
     private void loadMaterialIds() throws SQLException {
-        ArrayList<String> materialIds = materialDAOImpl.getAllMaterialIds();
+        ArrayList<String> materialIds = materialDAO.getAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(materialIds);
         cmbMaterialIdUsage.setItems(observableList);

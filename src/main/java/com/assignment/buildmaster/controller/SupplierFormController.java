@@ -92,7 +92,7 @@ public class SupplierFormController implements Initializable {
             Optional<ButtonType> buttonType = alert.showAndWait();
 
             if(buttonType.get() == ButtonType.YES){
-                boolean isDeleted = supplierDAOImpl.deleteSupplier(supplierId);
+                boolean isDeleted = supplierDAOImpl.delete(supplierId);
 
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Supplier deleted successfully!").show();
@@ -138,7 +138,7 @@ public class SupplierFormController implements Initializable {
         if(validation(supplierName, supplierAddress, supplierPhoneNo, supplierEmail)) {
             SupplierDto supplierDto = new SupplierDto(supplierId, supplierName, supplierAddress, supplierPhoneNo, supplierEmail);
 
-            boolean isSaved = supplierDAOImpl.saveSupplier(supplierDto);
+            boolean isSaved = supplierDAOImpl.save(supplierDto);
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Supplier saved...!").show();
                 refreshPage();
@@ -167,7 +167,7 @@ public class SupplierFormController implements Initializable {
         if(validation(supplierName, supplierAddress, supplierPhoneNo, supplierEmail)) {
             try {
                 SupplierDto supplierDto = new SupplierDto(supplierId, supplierName, supplierAddress, supplierPhoneNo, supplierEmail);
-                boolean isUpdated = supplierDAOImpl.updateSupplier(supplierDto);
+                boolean isUpdated = supplierDAOImpl.update(supplierDto);
 
                 if (isUpdated) {
                     new Alert(Alert.AlertType.INFORMATION, "Supplier updated successfully!").show();
@@ -228,7 +228,7 @@ public class SupplierFormController implements Initializable {
     }
 
     private void refreshPage() throws SQLException {
-        String nextSupplierId = supplierDAOImpl.getNextSupplierId();
+        String nextSupplierId = supplierDAOImpl.getNextId();
         lblSupplierID.setText(nextSupplierId);
 
         loadSupplierIds();
@@ -255,7 +255,7 @@ public class SupplierFormController implements Initializable {
     }
 
     private void loadSupplierIds() throws SQLException {
-        ArrayList<String> supplierIds = supplierDAOImpl.getAllSupplierIds();
+        ArrayList<String> supplierIds = supplierDAOImpl.getAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(supplierIds);
         cmbSupplierId.setItems(observableList);

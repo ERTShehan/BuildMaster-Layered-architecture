@@ -95,12 +95,32 @@ public class ClientDAOImpl implements ClientDAO {
     }
 
     @Override
-    public String getName(String employeeId) throws SQLException {
+    public String getName(String Id) throws SQLException {
         return "";
     }
 
     @Override
-    public String getRole(String employeeId) throws SQLException {
+    public String getInfo(String Id) throws SQLException {
         return "";
+    }
+
+    @Override
+    public String getUnit(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public ArrayList<String> findAllIds() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String findNameById(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
+        return null;
     }
 }

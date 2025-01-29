@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.dao.custom.MaterialDAO;
 import com.assignment.buildmaster.dto.MaterialDto;
 import com.assignment.buildmaster.view.tdm.MaterialTM;
 import com.assignment.buildmaster.dao.custom.Impl.MaterialDAOImpl;
@@ -14,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import java.util.List;
 
 public class AllMaterialTableController {
-    private final MaterialDAOImpl materialDAOImpl = new MaterialDAOImpl();
+    MaterialDAO materialDAO = new MaterialDAOImpl();
 
     @FXML
     private TableColumn<MaterialTM, String> colMaterialId;
@@ -45,7 +46,7 @@ public class AllMaterialTableController {
 
     private void loadMaterialData(){
         try {
-            List<MaterialDto> materials = materialDAOImpl.getAllMaterials();
+            List<MaterialDto> materials = materialDAO.getAll();
             ObservableList<MaterialDto> materialList = FXCollections.observableArrayList(materials);
             tblMaterials.setItems(materialList);
         } catch (Exception e) {

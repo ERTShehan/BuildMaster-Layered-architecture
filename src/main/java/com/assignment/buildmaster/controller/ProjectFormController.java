@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.dao.custom.ProjectDAO;
 import com.assignment.buildmaster.dto.ProjectDto;
 import com.assignment.buildmaster.dao.custom.Impl.ProjectDAOImpl;
 import com.jfoenix.controls.JFXButton;
@@ -28,7 +29,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ProjectFormController implements Initializable {
-    private final ProjectDAOImpl projectDAOImpl = new ProjectDAOImpl();
+    ProjectDAO projectDAO = new ProjectDAOImpl();
 
     @FXML
     private Label lblProjectID;
@@ -76,7 +77,7 @@ public class ProjectFormController implements Initializable {
     private void cmbClientIdLoadProject(ActionEvent event) throws SQLException {
         String selectedClientId = cmbClientId.getSelectionModel().getSelectedItem();
         if (selectedClientId != null) {
-            lblProjectClientName.setText(projectDAOImpl.findClientNameById(selectedClientId));
+            lblProjectClientName.setText(projectDAO.findNameById(selectedClientId));
             loadProjectIdsByClient(selectedClientId);
         }
 
@@ -87,9 +88,9 @@ public class ProjectFormController implements Initializable {
     private void cmbProjectIdOnAction(ActionEvent event) throws SQLException {
         String selectedProjectId = cmbProjectId.getSelectionModel().getSelectedItem();
         if (selectedProjectId != null) {
-            ProjectDto projectDto = projectDAOImpl.findByProjectId(selectedProjectId);
+            ProjectDto projectDto = projectDAO.findById(selectedProjectId);
             if (projectDto != null) {
-                lblProjectClientName.setText(projectDAOImpl.findClientNameById(projectDto.getClientId()));
+                lblProjectClientName.setText(projectDAO.findNameById(projectDto.getClientId()));
 
                 lblProjectID.setText(projectDto.getProjectId());
                 txtProjectName.setText(projectDto.getProjectName());
@@ -116,7 +117,7 @@ public class ProjectFormController implements Initializable {
             Optional<ButtonType> buttonType = alert.showAndWait();
 
             if(buttonType.get() == ButtonType.YES){
-                boolean isDeleted = projectDAOImpl.deleteProject(projectId);
+                boolean isDeleted = projectDAO.delete(projectId);
 
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Client deleted successfully!").show();
@@ -184,7 +185,7 @@ public class ProjectFormController implements Initializable {
         if (isValidName && isValidStartDate && isValidEndDate && isValidType && isValidStatus){
             ProjectDto projectDto = new ProjectDto(projectId, projectName, startDate, endDate, projectType, status, clientId);
 
-            boolean isSaved = projectDAOImpl.saveProject(projectDto);
+            boolean isSaved = projectDAO.save(projectDto);
 
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Project saved...!").show();
@@ -238,7 +239,7 @@ public class ProjectFormController implements Initializable {
         if (isValidName && isValidStartDate && isValidEndDate && isValidType && isValidStatus) {
             try {
                 ProjectDto projectDto = new ProjectDto(projectId, projectName, startDate, endDate, projectType, status, clientId);
-                boolean isUpdated = projectDAOImpl.updateProject(projectDto);
+                boolean isUpdated = projectDAO.update(projectDto);
 
                 if (isUpdated) {
                     new Alert(Alert.AlertType.INFORMATION, "Project updated successfully!").show();
@@ -284,7 +285,7 @@ public class ProjectFormController implements Initializable {
     }
 
     private void refreshPage() throws SQLException {
-        lblProjectID.setText(projectDAOImpl.getNextProjectId());
+        lblProjectID.setText(projectDAO.getNextId());
         loadClientIds();
         loadProjectIds();
         cmbClientId.getSelectionModel().clearSelection();
@@ -295,7 +296,7 @@ public class ProjectFormController implements Initializable {
         txtProjectEnd.clear();
         txtProjectStatus.clear();
         lblProjectClientName.setText("");
-        lblProjectID.setText(projectDAOImpl.getNextProjectId());
+        lblProjectID.setText(projectDAO.getNextId());
         resetFieldStyles();
 
         btnProjectSave.setDisable(true);
@@ -312,21 +313,21 @@ public class ProjectFormController implements Initializable {
     }
 
     private void loadClientIds() throws SQLException {
-        ArrayList<String> clientIds = projectDAOImpl.getAllClientIds();
+        ArrayList<String> clientIds = projectDAO.findAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(clientIds);
         cmbClientId.setItems(observableList);
     }
 
     private void loadProjectIds() throws SQLException {
-        ArrayList<String> ProjectIds = projectDAOImpl.getAllProjectIds();
+        ArrayList<String> ProjectIds = projectDAO.getAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(ProjectIds);
         cmbProjectId.setItems(observableList);
     }
 
     private void loadProjectIdsByClient(String clientId) throws SQLException {
-        ArrayList<String> projectIds = projectDAOImpl.getAllProjectIdsByClient(clientId);
+        ArrayList<String> projectIds = projectDAO.getAllIdsBy(clientId);
         cmbProjectId.setItems(FXCollections.observableArrayList(projectIds));
     }
 }

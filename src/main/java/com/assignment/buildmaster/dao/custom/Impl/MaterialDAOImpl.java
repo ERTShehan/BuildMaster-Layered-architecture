@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.dao.custom.Impl;
 
+import com.assignment.buildmaster.dao.custom.MaterialDAO;
 import com.assignment.buildmaster.dto.MaterialDto;
 import com.assignment.buildmaster.dao.SQLUtil;
 
@@ -8,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaterialDAOImpl {
-    public String getNextMaterialId() throws SQLException {
+public class MaterialDAOImpl implements MaterialDAO {
+    public String getNextId() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Material_ID from Material order by Material_ID desc limit 1");
 
         if (rst.next()) {
@@ -22,7 +23,7 @@ public class MaterialDAOImpl {
         return "MA01";
     }
 
-    public ArrayList<String> getAllMaterialIds() throws SQLException {
+    public ArrayList<String> getAllIds() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Material_ID from Material");
         ArrayList<String> materialIds = new ArrayList<>();
 
@@ -32,7 +33,7 @@ public class MaterialDAOImpl {
         return materialIds;
     }
 
-    public boolean saveMaterial(MaterialDto materialDto) throws SQLException {
+    public boolean save(MaterialDto materialDto) throws SQLException {
         return SQLUtil.execute(
                 "insert into Material values (?,?,?,?)",
                 materialDto.getMaterialId(),
@@ -42,12 +43,12 @@ public class MaterialDAOImpl {
         );
     }
 
-    public boolean updateMaterial(MaterialDto materialDto) throws SQLException {
+    public boolean update(MaterialDto materialDto) throws SQLException {
         String sql = "update Material set Name=?, Quantity_in_Stock=?, Unit=? where Material_ID=?";
         return SQLUtil.execute(sql, materialDto.getName(), materialDto.getQty(), materialDto.getUnit(), materialDto.getMaterialId());
     }
 
-    public boolean deleteMaterial(String materialId) throws SQLException {
+    public boolean delete(String materialId) throws SQLException {
         String sql = "DELETE FROM Material WHERE Material_ID=?";
         return SQLUtil.execute(sql, materialId);
     }
@@ -65,7 +66,7 @@ public class MaterialDAOImpl {
         return null;
     }
 
-    public List<MaterialDto> getAllMaterials() throws SQLException {
+    public List<MaterialDto> getAll() throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM Material");
         List<MaterialDto> materialList = new ArrayList<>();
 
@@ -80,11 +81,31 @@ public class MaterialDAOImpl {
         return materialList;
     }
 
+    @Override
+    public int getCount() throws SQLException {
+        return 0;
+    }
+
     public String getUnit(String materialId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT Unit FROM Material where Material_ID=?", materialId);
         if (rst.next()) {
             return rst.getString(1);
         }
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> findAllIds() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String findNameById(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
         return null;
     }
 
@@ -94,6 +115,11 @@ public class MaterialDAOImpl {
             return rst.getString(1);
         }
         return null;
+    }
+
+    @Override
+    public String getInfo(String Id) throws SQLException {
+        return "";
     }
 
 }

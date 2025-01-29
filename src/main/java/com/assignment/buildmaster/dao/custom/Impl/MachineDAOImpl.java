@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.dao.custom.Impl;
 
+import com.assignment.buildmaster.dao.custom.MachineDAO;
 import com.assignment.buildmaster.dto.MachineDto;
 import com.assignment.buildmaster.dao.SQLUtil;
 
@@ -8,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MachineDAOImpl {
-    public String getNextMachineId() throws SQLException {
+public class MachineDAOImpl implements MachineDAO {
+    public String getNextId() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Machine_ID from Machine order by Machine_ID desc limit 1");
 
         if (rst.next()) {
@@ -22,7 +23,7 @@ public class MachineDAOImpl {
         return "M001";
     }
 
-    public ArrayList<String> getAllMachineIds() throws SQLException {
+    public ArrayList<String> getAllIds() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Machine_ID from Machine");
         ArrayList<String> machineIds = new ArrayList<>();
 
@@ -47,7 +48,7 @@ public class MachineDAOImpl {
         return null;
     }
 
-    public boolean saveMachine(MachineDto machineDto) throws SQLException {
+    public boolean save(MachineDto machineDto) throws SQLException {
         return SQLUtil.execute(
                 "insert into Machine values (?,?,?,?)",
                 machineDto.getMachineId(),
@@ -57,17 +58,17 @@ public class MachineDAOImpl {
         );
     }
 
-    public boolean updateMachine(MachineDto machineDto) throws SQLException {
+    public boolean update(MachineDto machineDto) throws SQLException {
         String sql = "update Machine set Name=?, Status=?, Description=? where Machine_ID=?";
         return SQLUtil.execute(sql, machineDto.getName(), machineDto.getStatus(), machineDto.getDescription(), machineDto.getMachineId());
     }
 
-    public boolean deleteMachine(String machineID) throws SQLException {
+    public boolean delete(String machineID) throws SQLException {
         String sql = "DELETE FROM Machine WHERE Machine_ID=?";
         return SQLUtil.execute(sql, machineID);
     }
 
-    public List<MachineDto> getAllMachines() throws SQLException {
+    public List<MachineDto> getAll() throws SQLException {
         ResultSet resultSet = SQLUtil.execute("SELECT * FROM Machine");
         List<MachineDto> machineList = new ArrayList<>();
 
@@ -80,5 +81,40 @@ public class MachineDAOImpl {
             ));
         }
         return machineList;
+    }
+
+    @Override
+    public int getCount() throws SQLException {
+        return 0;
+    }
+
+    @Override
+    public String getName(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public String getInfo(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public String getUnit(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public ArrayList<String> findAllIds() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String findNameById(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
+        return null;
     }
 }

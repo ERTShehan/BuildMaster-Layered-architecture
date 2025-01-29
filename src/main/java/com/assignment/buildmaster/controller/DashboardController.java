@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.dao.custom.ClientDAO;
 import com.assignment.buildmaster.view.tdm.ProjectExpensesTM;
 import com.assignment.buildmaster.dao.custom.Impl.ClientDAOImpl;
 import com.assignment.buildmaster.dao.custom.Impl.DashboardDAOImpl;
@@ -21,7 +22,7 @@ import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
     private final DashboardDAOImpl dashboardDAOImpl = new DashboardDAOImpl();
-    private final ClientDAOImpl clientDAOImpl = new ClientDAOImpl();
+    ClientDAO clientDAO = new ClientDAOImpl();
 
     @FXML
     private AnchorPane dashboardForm;
@@ -93,7 +94,7 @@ public class DashboardController implements Initializable {
     }
 
     private void loadClientCount() throws SQLException {
-        int count = clientDAOImpl.getCount();
+        int count = clientDAO.getCount();
         lblClientCount.setText(String.valueOf(count));
     }
 

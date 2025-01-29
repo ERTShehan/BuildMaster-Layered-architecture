@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.dao.custom.Impl;
 
+import com.assignment.buildmaster.dao.custom.PaymentDAO;
 import com.assignment.buildmaster.dto.PaymentDto;
 import com.assignment.buildmaster.dao.SQLUtil;
 
@@ -8,8 +9,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PaymentDAOImpl {
-    public String getNextPaymentId() throws SQLException {
+public class PaymentDAOImpl implements PaymentDAO {
+    public String getNextId() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Payment_ID from Payment order by Payment_ID desc limit 1");
 
         if (rst.next()) {
@@ -22,7 +23,7 @@ public class PaymentDAOImpl {
         return "PA01";
     }
 
-    public ArrayList<String> getAllPaymentIds() throws SQLException {
+    public ArrayList<String> getAllIds() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Payment_ID from Payment");
         ArrayList<String> paymentIds = new ArrayList<>();
 
@@ -33,7 +34,7 @@ public class PaymentDAOImpl {
         return paymentIds;
     }
 
-    public ArrayList<String> getAllProjectIds() throws SQLException {
+    public ArrayList<String> findAllIds() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Project_ID from Project");
         ArrayList<String> projectIds = new ArrayList<>();
 
@@ -44,16 +45,16 @@ public class PaymentDAOImpl {
         return projectIds;
     }
 
-    public String findProjectNameById(String projectId) throws SQLException {
-        ResultSet rst = SQLUtil.execute("SELECT Name FROM Project WHERE Project_ID=?", projectId);
+    public String findNameById(String Id) throws SQLException {
+        ResultSet rst = SQLUtil.execute("SELECT Name FROM Project WHERE Project_ID=?", Id);
         if (rst.next()) {
             return rst.getString(1);
         }
         return null;
     }
 
-    public ArrayList<String> getAllPaymentIdsByProject(String projectId) throws SQLException {
-        ResultSet rst = SQLUtil.execute("SELECT Payment_ID FROM Payment WHERE Project_ID=?", projectId);
+    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
+        ResultSet rst = SQLUtil.execute("SELECT Payment_ID FROM Payment WHERE Project_ID=?", Id);
         ArrayList<String> paymentIds = new ArrayList<>();
         while (rst.next()) {
             paymentIds.add(rst.getString(1));
@@ -61,7 +62,7 @@ public class PaymentDAOImpl {
         return paymentIds;
     }
 
-    public PaymentDto findByPaymentId(String paymentId) throws SQLException {
+    public PaymentDto findById(String paymentId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM Payment WHERE Payment_ID=?", paymentId);
         if (rst.next()) {
             return new PaymentDto(
@@ -75,22 +76,22 @@ public class PaymentDAOImpl {
         return null;
     }
 
-    public boolean savePayment(PaymentDto paymentDto) throws SQLException {
+    public boolean save(PaymentDto paymentDto) throws SQLException {
         String sql = "INSERT INTO Payment (Payment_ID, Project_ID, Date, Type, Amount) VALUES (?, ?, ?, ?, ?)";
         return SQLUtil.execute(sql, paymentDto.getPaymentID(), paymentDto.getProjectID(), paymentDto.getDate(), paymentDto.getType(), paymentDto.getAmount());
     }
 
-    public boolean updatePayment(PaymentDto paymentDto) throws SQLException {
+    public boolean update(PaymentDto paymentDto) throws SQLException {
         String sql = "UPDATE Payment SET Project_ID = ?, Date = ?, Type = ?, Amount = ? WHERE Payment_ID = ?";
         return SQLUtil.execute(sql, paymentDto.getProjectID(), paymentDto.getDate(), paymentDto.getType(), paymentDto.getAmount(), paymentDto.getPaymentID());
     }
 
-    public boolean deletePayment(String paymentID) throws SQLException {
+    public boolean delete(String paymentID) throws SQLException {
         String sql = "DELETE FROM Payment WHERE Payment_ID = ?";
         return SQLUtil.execute(sql, paymentID);
     }
 
-    public List<PaymentDto> getAllPayments() throws SQLException {
+    public List<PaymentDto> getAll() throws SQLException {
         ResultSet resultSet = SQLUtil.execute("SELECT * FROM Payment order by Payment_ID asc");
         List<PaymentDto> paymentList = new ArrayList<>();
 
@@ -104,5 +105,25 @@ public class PaymentDAOImpl {
             ));
         }
         return paymentList;
+    }
+
+    @Override
+    public int getCount() throws SQLException {
+        return 0;
+    }
+
+    @Override
+    public String getName(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public String getInfo(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public String getUnit(String Id) throws SQLException {
+        return "";
     }
 }

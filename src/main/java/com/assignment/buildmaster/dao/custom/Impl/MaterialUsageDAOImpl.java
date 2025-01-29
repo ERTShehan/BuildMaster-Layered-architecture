@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.dao.custom.Impl;
 
+import com.assignment.buildmaster.dao.custom.MaterialUsageDAO;
 import com.assignment.buildmaster.dto.MaterialUsageDto;
 import com.assignment.buildmaster.dao.SQLUtil;
 import javafx.scene.control.Alert;
@@ -10,8 +11,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MaterialUsageDAOImpl {
-    public String getNextUsageId() throws SQLException {
+public class MaterialUsageDAOImpl implements MaterialUsageDAO {
+    public String getNextId() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Usage_ID from MaterialUsage order by Usage_ID desc limit 1");
 
         if (rst.next()) {
@@ -24,7 +25,17 @@ public class MaterialUsageDAOImpl {
         return "U001";
     }
 
-    public boolean saveMaterialUsage(MaterialUsageDto materialUsageDto) throws SQLException {
+    @Override
+    public MaterialUsageDto findById(String selectedId) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getAllIds() throws SQLException {
+        return null;
+    }
+
+    public boolean save(MaterialUsageDto materialUsageDto) throws SQLException {
 //        return CrudUtil.execute(
 //                "insert into MaterialUsage values (?,?,?,?,?)",
 //                materialUsageDto.getUsageId(),
@@ -100,7 +111,7 @@ public class MaterialUsageDAOImpl {
         }
     }
 
-    public boolean updateMaterialUsage(MaterialUsageDto materialUsageDto) throws SQLException {
+    public boolean update(MaterialUsageDto materialUsageDto) throws SQLException {
         return SQLUtil.execute(
                 "update MaterialUsage set Project_ID=?, Material_ID=?, Quantity_used=?, Date=? where Usage_ID=?",
                 materialUsageDto.getProjectId(),
@@ -111,7 +122,7 @@ public class MaterialUsageDAOImpl {
         );
     }
 
-    public List<MaterialUsageDto> getAllUsages() throws SQLException {
+    public List<MaterialUsageDto> getAll() throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM MaterialUsage");
         List<MaterialUsageDto> usageList = new ArrayList<>();
 
@@ -127,7 +138,42 @@ public class MaterialUsageDAOImpl {
         return usageList;
     }
 
-    public boolean deleteUsage(String usageId) throws SQLException {
+    @Override
+    public int getCount() throws SQLException {
+        return 0;
+    }
+
+    @Override
+    public String getName(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public String getInfo(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public String getUnit(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public ArrayList<String> findAllIds() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String findNameById(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
+        return null;
+    }
+
+    public boolean delete(String usageId) throws SQLException {
 //        String sql = "DELETE FROM MaterialUsage WHERE Usage_ID=?";
 //        return CrudUtil.execute(sql, usageId);
         Connection connection = null;

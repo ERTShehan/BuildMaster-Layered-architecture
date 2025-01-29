@@ -99,11 +99,31 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         return null;
     }
 
-    public String getRole(String employeeId) throws SQLException {
+    public String getInfo(String employeeId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT Role FROM Employee where Employee_ID=?", employeeId);
         if (rst.next()) {
             return rst.getString(1);
         }
+        return null;
+    }
+
+    @Override
+    public String getUnit(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public ArrayList<String> findAllIds() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public String findNameById(String Id) throws SQLException {
+        return "";
+    }
+
+    @Override
+    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
         return null;
     }
 }

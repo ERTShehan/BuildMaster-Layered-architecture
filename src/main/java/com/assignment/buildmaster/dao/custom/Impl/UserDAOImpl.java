@@ -1,6 +1,7 @@
 package com.assignment.buildmaster.dao.custom.Impl;
 
 import com.assignment.buildmaster.dao.SQLUtil;
+import com.assignment.buildmaster.dao.custom.UserDAO;
 import javafx.util.Pair;
 
 import java.sql.ResultSet;

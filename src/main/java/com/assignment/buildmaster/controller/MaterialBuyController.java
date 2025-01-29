@@ -1,5 +1,7 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.dao.custom.MaterialBuyDAO;
+import com.assignment.buildmaster.dao.custom.MaterialDAO;
 import com.assignment.buildmaster.dto.MaterialBuyDto;
 import com.assignment.buildmaster.view.tdm.MaterialBuyTM;
 import com.assignment.buildmaster.dao.custom.Impl.MaterialBuyDAOImpl;
@@ -104,16 +106,16 @@ public class MaterialBuyController implements Initializable {
     @FXML
     private Label lblUnitLoadBuy;
 
-    private final MaterialBuyDAOImpl materialBuyDAOImpl = new MaterialBuyDAOImpl();
-    private final MaterialDAOImpl materialDAOImpl = new MaterialDAOImpl();
+    MaterialBuyDAO materialBuyDAO = new MaterialBuyDAOImpl();
+    MaterialDAO materialDAO = new MaterialDAOImpl();
     private final SupplierDAOImpl supplierDAOImpl = new SupplierDAOImpl();
 
     @FXML
     void cmbMaterialIdLoadBuy(ActionEvent event) throws SQLException {
         String selectedMaterialId = cmbMaterialIdBuy.getSelectionModel().getSelectedItem();
         if (selectedMaterialId != null) {
-            lblUnitLoadBuy.setText(materialDAOImpl.getUnit(selectedMaterialId));
-            lblMaterialNameBuy.setText(materialDAOImpl.getName(selectedMaterialId));
+            lblUnitLoadBuy.setText(materialDAO.getUnit(selectedMaterialId));
+            lblMaterialNameBuy.setText(materialDAO.getName(selectedMaterialId));
         }
         checkComboBoxSelection();
     }
@@ -122,7 +124,7 @@ public class MaterialBuyController implements Initializable {
     void cmbSupplierIdLoadBuy(ActionEvent event) throws SQLException {
         String selectedSupplierId = cmbSupplierIdBuy.getSelectionModel().getSelectedItem();
         if (selectedSupplierId != null) {
-            lblSupplierNameBuy.setText(supplierDAOImpl.getSupplierNameById(selectedSupplierId));
+            lblSupplierNameBuy.setText(supplierDAOImpl.findNameById(selectedSupplierId));
         }
         checkComboBoxSelection();
     }
@@ -146,7 +148,7 @@ public class MaterialBuyController implements Initializable {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure you want to delete this Material Purchase?", ButtonType.YES, ButtonType.NO);
             Optional<ButtonType> buttonType = alert.showAndWait();
             if(buttonType.get() == ButtonType.YES){
-                boolean isDeleted = materialBuyDAOImpl.deletePurchase(paymentId);
+                boolean isDeleted = materialBuyDAO.delete(paymentId);
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Material Purchase deleted successfully!").show();
                     refreshPage();
@@ -187,7 +189,7 @@ public class MaterialBuyController implements Initializable {
                 double totalPrice = Double.parseDouble(lblTotalPrice.getText());
 
                 MaterialBuyDto materialBuyDto = new MaterialBuyDto(paymentId, materialId, supplierId, date, unitAmount, quantity, totalPrice);
-                boolean isSaved = materialBuyDAOImpl.saveMaterialBuy(materialBuyDto);
+                boolean isSaved = materialBuyDAO.save(materialBuyDto);
                 if (isSaved) {
                     new Alert(Alert.AlertType.INFORMATION, "Material Purchase saved...!").show();
                     refreshPage();
@@ -236,7 +238,7 @@ public class MaterialBuyController implements Initializable {
         if(validation(String.valueOf(unitAmount), quantity)){
             try{
                 MaterialBuyDto materialBuyDto = new MaterialBuyDto(paymentId, materialId, supplierId, date, unitAmount, quantity, totalPrice);
-                boolean isUpdated = materialBuyDAOImpl.updateMaterialBuy(materialBuyDto);
+                boolean isUpdated = materialBuyDAO.update(materialBuyDto);
                 if (isUpdated) {
                     new Alert(Alert.AlertType.INFORMATION, "Material Purchase saved...!").show();
                     refreshPage();
@@ -296,7 +298,7 @@ public class MaterialBuyController implements Initializable {
 
     private void refreshPage() throws SQLException {
         refreshTable();
-        lblPaymentID.setText(materialBuyDAOImpl.getNextPaymentId());
+        lblPaymentID.setText(materialBuyDAO.getNextId());
         loadMaterialIds();
         loadSupplierIds();
         lblBuyDate.setText(LocalDate.now().toString());
@@ -309,7 +311,7 @@ public class MaterialBuyController implements Initializable {
         txtBuyQuantity.clear();
         lblUnitLoadBuy.setText("");
         lblTotalPrice.setText("");
-        lblPaymentID.setText(materialBuyDAOImpl.getNextPaymentId());
+        lblPaymentID.setText(materialBuyDAO.getNextId());
         resetFieldStyles();
 
         btnBuySave.setDisable(true);
@@ -318,7 +320,7 @@ public class MaterialBuyController implements Initializable {
     }
 
     private void refreshTable() throws SQLException {
-        ArrayList<MaterialBuyDto> buyDTOS = (ArrayList<MaterialBuyDto>) materialBuyDAOImpl.getAllPurchases();
+        ArrayList<MaterialBuyDto> buyDTOS = (ArrayList<MaterialBuyDto>) materialBuyDAO.getAll();
         ObservableList<MaterialBuyTM> buyTMS = FXCollections.observableArrayList();
         for (MaterialBuyDto materialBuyDto : buyDTOS){
             MaterialBuyTM materialBuyTM = new MaterialBuyTM(
@@ -336,14 +338,14 @@ public class MaterialBuyController implements Initializable {
     }
 
     private void loadMaterialIds() throws SQLException {
-        ArrayList<String> materialIds = materialDAOImpl.getAllMaterialIds();
+        ArrayList<String> materialIds = materialDAO.getAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(materialIds);
         cmbMaterialIdBuy.setItems(observableList);
     }
 
     private void loadSupplierIds() throws SQLException {
-        ArrayList<String> supplierIds = supplierDAOImpl.getAllSupplierIds();
+        ArrayList<String> supplierIds = supplierDAOImpl.getAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(supplierIds);
         cmbSupplierIdBuy.setItems(observableList);

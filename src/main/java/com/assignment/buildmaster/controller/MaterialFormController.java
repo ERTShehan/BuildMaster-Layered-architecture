@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.dao.custom.MaterialDAO;
 import com.assignment.buildmaster.dto.MaterialDto;
 import com.assignment.buildmaster.dao.custom.Impl.MaterialDAOImpl;
 import com.jfoenix.controls.JFXButton;
@@ -28,7 +29,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class MaterialFormController implements Initializable {
-    private final MaterialDAOImpl materialDAOImpl = new MaterialDAOImpl();
+    MaterialDAO materialDAO = new MaterialDAOImpl();
 
     @FXML
     private AnchorPane MaterialPane;
@@ -73,7 +74,7 @@ public class MaterialFormController implements Initializable {
     void cmbProjectIdOnAction(ActionEvent event) throws SQLException {
         String selectedMaterialId = cmbMaterialId.getSelectionModel().getSelectedItem();
         if (selectedMaterialId != null) {
-            MaterialDto materialDto = materialDAOImpl.findById(selectedMaterialId);
+            MaterialDto materialDto = materialDAO.findById(selectedMaterialId);
 
             if (materialDto != null) {
                 lblMaterialID.setText(materialDto.getMaterialId());
@@ -134,7 +135,7 @@ public class MaterialFormController implements Initializable {
 
 
             if(buttonType.get() == ButtonType.YES){
-                boolean isDeleted = materialDAOImpl.deleteMaterial(materialId);
+                boolean isDeleted = materialDAO.delete(materialId);
 
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Material deleted successfully!").show();
@@ -164,7 +165,7 @@ public class MaterialFormController implements Initializable {
 
         if(validation(materialName, materialQty, materialUnit)) {
             MaterialDto materialDto = new MaterialDto(materialId, materialName, materialQty, materialUnit);
-            boolean isSaved = materialDAOImpl.saveMaterial(materialDto);
+            boolean isSaved = materialDAO.save(materialDto);
 
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Material saved...!").show();
@@ -188,7 +189,7 @@ public class MaterialFormController implements Initializable {
         if(validation(materialName, materialQty, materialUnit)) {
             try {
                 MaterialDto materialDto = new MaterialDto(materialId, materialName, materialQty, materialUnit);
-                boolean isUpdated = materialDAOImpl.updateMaterial(materialDto);
+                boolean isUpdated = materialDAO.update(materialDto);
 
                 if (isUpdated) {
                     new Alert(Alert.AlertType.INFORMATION, "Material updated successfully!").show();
@@ -251,7 +252,7 @@ public class MaterialFormController implements Initializable {
     }
 
     private void refreshPage() throws SQLException {
-        String nextMaterialID = materialDAOImpl.getNextMaterialId();
+        String nextMaterialID = materialDAO.getNextId();
         lblMaterialID.setText(nextMaterialID);
 
         loadMaterialIds();
@@ -271,7 +272,7 @@ public class MaterialFormController implements Initializable {
     }
 
     private void loadMaterialIds() throws SQLException {
-        ArrayList<String> materialIds = materialDAOImpl.getAllMaterialIds();
+        ArrayList<String> materialIds = materialDAO.getAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(materialIds);
         cmbMaterialId.setItems(observableList);

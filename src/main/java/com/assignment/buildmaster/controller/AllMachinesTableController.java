@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.dao.custom.MachineDAO;
 import com.assignment.buildmaster.dto.MachineDto;
 import com.assignment.buildmaster.view.tdm.MachineTM;
 import com.assignment.buildmaster.dao.custom.Impl.MachineDAOImpl;
@@ -40,7 +41,7 @@ public class AllMachinesTableController {
     @FXML
     private TableView<MachineDto> tblMachines;
 
-    private final MachineDAOImpl machineDAOImpl = new MachineDAOImpl();
+    MachineDAO machineDAO = new MachineDAOImpl();
 
     public void initialize(){
         colMachineId.setCellValueFactory(new PropertyValueFactory<>("machineId"));
@@ -53,7 +54,7 @@ public class AllMachinesTableController {
 
     private void loadMachineData(){
         try {
-            List<MachineDto> machines = machineDAOImpl.getAllMachines();
+            List<MachineDto> machines = machineDAO.getAll();
             ObservableList<MachineDto> machineList = FXCollections.observableArrayList(machines);
             tblMachines.setItems(machineList);
         } catch (SQLException e) {

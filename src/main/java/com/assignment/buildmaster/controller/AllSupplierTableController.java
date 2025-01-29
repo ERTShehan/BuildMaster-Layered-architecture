@@ -56,7 +56,7 @@ public class AllSupplierTableController {
 
     private void loadSupplierData(){
         try {
-            List<SupplierDto> suppliers = supplierDAOImpl.getAllSuppliers();
+            List<SupplierDto> suppliers = supplierDAOImpl.getAll();
             ObservableList<SupplierDto> supplierList = FXCollections.observableArrayList(suppliers);
             tblSuppliers.setItems(supplierList);
         } catch (Exception e) {

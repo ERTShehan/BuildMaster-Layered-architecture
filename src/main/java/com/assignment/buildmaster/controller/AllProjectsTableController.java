@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.dao.custom.ProjectDAO;
 import com.assignment.buildmaster.dto.ProjectDto;
 import com.assignment.buildmaster.view.tdm.ProjectTM;
 import com.assignment.buildmaster.dao.custom.Impl.ProjectDAOImpl;
@@ -45,7 +46,7 @@ public class AllProjectsTableController {
     @FXML
     private TableView<ProjectDto> tblProjects;
 
-    private final ProjectDAOImpl projectDAOImpl = new ProjectDAOImpl();
+    ProjectDAO projectDAO = new ProjectDAOImpl();
 
     public void initialize(){
         colClientId.setCellValueFactory(new PropertyValueFactory<>("projectId"));
@@ -61,7 +62,7 @@ public class AllProjectsTableController {
 
     private void loadProjectData() {
         try {
-            List<ProjectDto> projects = projectDAOImpl.getAllProjects();
+            List<ProjectDto> projects = projectDAO.getAll();
             ObservableList<ProjectDto> projectList = FXCollections.observableArrayList(projects);
             tblProjects.setItems(projectList);
         } catch (SQLException e) {

@@ -1,5 +1,6 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.dao.custom.ClientDAO;
 import com.assignment.buildmaster.dto.ClientDto;
 import com.assignment.buildmaster.dao.custom.Impl.ClientDAOImpl;
 import com.jfoenix.controls.JFXButton;
@@ -17,7 +18,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class AllClientsTableController {
-    private final ClientDAOImpl clientDAOImpl = new ClientDAOImpl();
+    ClientDAO clientDAO = new ClientDAOImpl();
 
     @FXML
     private AnchorPane clientTablePane;
@@ -55,7 +56,7 @@ public class AllClientsTableController {
 
     private void loadClientData() {
         try {
-            List<ClientDto> clients = clientDAOImpl.getAll();
+            List<ClientDto> clients = clientDAO.getAll();
             ObservableList<ClientDto> clientList = FXCollections.observableArrayList(clients);
             tblClients.setItems(clientList);
         } catch (SQLException e) {
