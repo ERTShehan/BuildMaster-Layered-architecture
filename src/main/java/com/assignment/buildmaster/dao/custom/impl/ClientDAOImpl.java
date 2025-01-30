@@ -1,8 +1,9 @@
-package com.assignment.buildmaster.dao.custom.Impl;
+package com.assignment.buildmaster.dao.custom.impl;
 
 import com.assignment.buildmaster.dao.custom.ClientDAO;
 import com.assignment.buildmaster.dto.ClientDto;
 import com.assignment.buildmaster.dao.SQLUtil;
+import com.assignment.buildmaster.entity.Client;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,20 +11,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientDAOImpl implements ClientDAO {
-    public boolean save(ClientDto clientDto) throws SQLException {
+    public boolean save(Client entity) throws SQLException {
         return SQLUtil.execute(
                 "insert into Client values (?,?,?,?,?)",
-                clientDto.getId(),
-                clientDto.getName(),
-                clientDto.getAddress(),
-                clientDto.getPhoneNo(),
-                clientDto.getEmail()
+                entity.getId(),
+                entity.getName(),
+                entity.getAddress(),
+                entity.getPhoneNo(),
+                entity.getEmail()
         );
     }
 
-    public boolean update(ClientDto clientDto) throws SQLException {
+    public boolean update(Client entity) throws SQLException {
         String sql = "update Client set Name=?, Address=?, Phone_No=?, Email=? where Client_ID=?";
-        return SQLUtil.execute(sql, clientDto.getName(), clientDto.getAddress(), clientDto.getPhoneNo(), clientDto.getEmail(), clientDto.getId());
+        return SQLUtil.execute(sql, entity.getName(), entity.getAddress(), entity.getPhoneNo(), entity.getEmail(), entity.getId());
     }
     
     public String getNextId() throws SQLException {
@@ -39,11 +40,11 @@ public class ClientDAOImpl implements ClientDAO {
         return "C001";
     }
 
-    public ClientDto findById(String selectedClId) throws SQLException {
+    public Client findById(String selectedClId) throws SQLException {
         ResultSet rst = SQLUtil.execute("select * from Client where Client_ID=?", selectedClId);
 
         if (rst.next()) {
-            return new ClientDto(
+            return new Client(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),
@@ -70,12 +71,12 @@ public class ClientDAOImpl implements ClientDAO {
         return SQLUtil.execute(sql, clientID);
     }
 
-    public List<ClientDto> getAll() throws SQLException {
+    public List<Client> getAll() throws SQLException {
         ResultSet resultSet = SQLUtil.execute("SELECT * FROM Client");
-        List<ClientDto> clientList = new ArrayList<>();
+        List<Client> clientList = new ArrayList<>();
 
         while (resultSet.next()) {
-            clientList.add(new ClientDto(
+            clientList.add(new Client(
                     resultSet.getString("Client_ID"),
                     resultSet.getString("Name"),
                     resultSet.getString("Address"),

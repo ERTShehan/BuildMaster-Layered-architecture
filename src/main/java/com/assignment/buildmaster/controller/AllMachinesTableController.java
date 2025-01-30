@@ -3,7 +3,7 @@ package com.assignment.buildmaster.controller;
 import com.assignment.buildmaster.dao.custom.MachineDAO;
 import com.assignment.buildmaster.dto.MachineDto;
 import com.assignment.buildmaster.view.tdm.MachineTM;
-import com.assignment.buildmaster.dao.custom.Impl.MachineDAOImpl;
+import com.assignment.buildmaster.dao.custom.impl.MachineDAOImpl;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

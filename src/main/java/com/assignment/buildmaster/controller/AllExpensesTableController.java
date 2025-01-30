@@ -3,7 +3,7 @@ package com.assignment.buildmaster.controller;
 import com.assignment.buildmaster.dao.custom.ExpensesDAO;
 import com.assignment.buildmaster.dto.ExpensesDto;
 import com.assignment.buildmaster.view.tdm.ExpensesTM;
-import com.assignment.buildmaster.dao.custom.Impl.ExpensesDAOImpl;
+import com.assignment.buildmaster.dao.custom.impl.ExpensesDAOImpl;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

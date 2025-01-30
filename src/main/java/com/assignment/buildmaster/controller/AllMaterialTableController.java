@@ -3,7 +3,7 @@ package com.assignment.buildmaster.controller;
 import com.assignment.buildmaster.dao.custom.MaterialDAO;
 import com.assignment.buildmaster.dto.MaterialDto;
 import com.assignment.buildmaster.view.tdm.MaterialTM;
-import com.assignment.buildmaster.dao.custom.Impl.MaterialDAOImpl;
+import com.assignment.buildmaster.dao.custom.impl.MaterialDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;

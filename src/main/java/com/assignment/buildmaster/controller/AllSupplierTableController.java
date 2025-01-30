@@ -2,7 +2,7 @@ package com.assignment.buildmaster.controller;
 
 import com.assignment.buildmaster.dto.SupplierDto;
 import com.assignment.buildmaster.view.tdm.SupplierTM;
-import com.assignment.buildmaster.dao.custom.Impl.SupplierDAOImpl;
+import com.assignment.buildmaster.dao.custom.impl.SupplierDAOImpl;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

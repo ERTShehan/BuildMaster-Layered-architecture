@@ -2,7 +2,7 @@ package com.assignment.buildmaster.controller;
 
 import com.assignment.buildmaster.dao.custom.EmployeeDAO;
 import com.assignment.buildmaster.dto.EmployeeDto;
-import com.assignment.buildmaster.dao.custom.Impl.EmployeeDAOImpl;
+import com.assignment.buildmaster.dao.custom.impl.EmployeeDAOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;

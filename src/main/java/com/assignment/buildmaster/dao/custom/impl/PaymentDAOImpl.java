@@ -1,4 +1,4 @@
-package com.assignment.buildmaster.dao.custom.Impl;
+package com.assignment.buildmaster.dao.custom.impl;
 
 import com.assignment.buildmaster.dao.custom.PaymentDAO;
 import com.assignment.buildmaster.dto.PaymentDto;

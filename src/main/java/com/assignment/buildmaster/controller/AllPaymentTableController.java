@@ -3,7 +3,7 @@ package com.assignment.buildmaster.controller;
 import com.assignment.buildmaster.dao.custom.PaymentDAO;
 import com.assignment.buildmaster.dto.PaymentDto;
 import com.assignment.buildmaster.view.tdm.PaymentTM;
-import com.assignment.buildmaster.dao.custom.Impl.PaymentDAOImpl;
+import com.assignment.buildmaster.dao.custom.impl.PaymentDAOImpl;
 import com.jfoenix.controls.JFXButton;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

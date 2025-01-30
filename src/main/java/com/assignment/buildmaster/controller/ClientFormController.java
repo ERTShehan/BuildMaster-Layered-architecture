@@ -1,8 +1,9 @@
 package com.assignment.buildmaster.controller;
 
-import com.assignment.buildmaster.dao.custom.ClientDAO;
+import com.assignment.buildmaster.bo.BOFactory;
+import com.assignment.buildmaster.bo.custom.ClientBO;
+import com.assignment.buildmaster.bo.custom.impl.ClientBOImpl;
 import com.assignment.buildmaster.dto.ClientDto;
-import com.assignment.buildmaster.dao.custom.Impl.ClientDAOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -29,7 +30,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class ClientFormController implements Initializable {
-    ClientDAO clientDAO = new ClientDAOImpl();
+    ClientBO clientBO = (ClientBO) BOFactory.getInstance().getBO(BOFactory.BOType.CLIENT);
 
     @FXML
     private JFXButton btnDelete;
@@ -111,7 +112,7 @@ public class ClientFormController implements Initializable {
         if (isValidName && isValidAddress && isValidPhone && isValidEmail){
             ClientDto clientDto = new ClientDto(clientID, clientName, clientAddress, clientPhone, clientEmail);
 
-            boolean isRegister = clientDAO.save(clientDto);
+            boolean isRegister = clientBO.saveClient(clientDto);
 
             if (isRegister) {
                 new Alert(Alert.AlertType.INFORMATION, "Client saved...!").show();
@@ -124,7 +125,7 @@ public class ClientFormController implements Initializable {
     }
 
     private void refreshPage() throws SQLException {
-        String nextClientID = clientDAO.getNextId();
+        String nextClientID = clientBO.getNextClientId();
         lblClientID.setText(nextClientID);
 
         loadClientIds();
@@ -156,7 +157,7 @@ public class ClientFormController implements Initializable {
     }
 
     private void loadClientIds() throws SQLException {
-        ArrayList<String> clientIds = clientDAO.getAllIds();
+        ArrayList<String> clientIds = clientBO.getAllClientIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(clientIds);
         cmbClientId.setItems(observableList);
@@ -166,7 +167,7 @@ public class ClientFormController implements Initializable {
     private void cmbClientOnAction(ActionEvent event) throws SQLException {
         String selectedClientId = cmbClientId.getSelectionModel().getSelectedItem();
         if (selectedClientId != null) {
-            ClientDto clientDto = clientDAO.findById(selectedClientId);
+            ClientDto clientDto = clientBO.findByClientId(selectedClientId);
 
             if (clientDto != null) {
                 lblClientID.setText(clientDto.getId());
@@ -195,7 +196,7 @@ public class ClientFormController implements Initializable {
 
 
             if(buttonType.get() == ButtonType.YES){
-                boolean isDeleted = clientDAO.delete(clientID);
+                boolean isDeleted = clientBO.deleteClient(clientID);
 
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Client deleted successfully!").show();
@@ -293,7 +294,7 @@ public class ClientFormController implements Initializable {
         if (isValidName && isValidAddress && isValidPhone && isValidEmail) {
             try {
                 ClientDto clientDto = new ClientDto(clientID, clientName, clientAddress, clientPhone, clientEmail);
-                boolean isUpdated = clientDAO.update(clientDto);
+                boolean isUpdated = clientBO.updateClient(clientDto);
 
                 if (isUpdated) {
                     new Alert(Alert.AlertType.INFORMATION, "Client updated successfully!").show();

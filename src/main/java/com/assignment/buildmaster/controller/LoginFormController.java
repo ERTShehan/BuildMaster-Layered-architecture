@@ -1,7 +1,7 @@
 package com.assignment.buildmaster.controller;
 
 import com.assignment.buildmaster.AppInitializer;
-import com.assignment.buildmaster.dao.custom.Impl.UserDAOImpl;
+import com.assignment.buildmaster.dao.custom.impl.UserDAOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;

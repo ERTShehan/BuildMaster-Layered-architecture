@@ -2,8 +2,8 @@ package com.assignment.buildmaster.controller;
 
 import com.assignment.buildmaster.dao.custom.ClientDAO;
 import com.assignment.buildmaster.view.tdm.ProjectExpensesTM;
-import com.assignment.buildmaster.dao.custom.Impl.ClientDAOImpl;
-import com.assignment.buildmaster.dao.custom.Impl.DashboardDAOImpl;
+import com.assignment.buildmaster.dao.custom.impl.ClientDAOImpl;
+import com.assignment.buildmaster.dao.custom.impl.DashboardDAOImpl;
 import com.jfoenix.controls.JFXListView;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

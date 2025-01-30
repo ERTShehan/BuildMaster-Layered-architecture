@@ -2,7 +2,7 @@ package com.assignment.buildmaster.controller;
 
 import com.assignment.buildmaster.dao.custom.MachineDAO;
 import com.assignment.buildmaster.dto.MachineDto;
-import com.assignment.buildmaster.dao.custom.Impl.MachineDAOImpl;
+import com.assignment.buildmaster.dao.custom.impl.MachineDAOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
