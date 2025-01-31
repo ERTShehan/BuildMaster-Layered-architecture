@@ -2,6 +2,7 @@ package com.assignment.buildmaster.bo;
 
 
 import com.assignment.buildmaster.bo.custom.impl.ClientBOImpl;
+import com.assignment.buildmaster.bo.custom.impl.EmployeeBOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -14,15 +15,15 @@ public class BOFactory {
     }
 
     public enum BOType {
-        CLIENT
+        CLIENT, EMPLOYEE
     }
 
     public SuperBO getBO(BOType type) {
         switch (type) {
             case CLIENT:
                 return new ClientBOImpl();
-//            case EMPLOYEE:
-//                return new EmployeeBOImpl();
+            case EMPLOYEE:
+                return new EmployeeBOImpl();
 //            case EXPENSES:
 //                return new ExpensesBOImpl();
 //            case MACHINE:

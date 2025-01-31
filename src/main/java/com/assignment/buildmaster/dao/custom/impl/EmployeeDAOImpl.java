@@ -3,6 +3,7 @@ package com.assignment.buildmaster.dao.custom.impl;
 import com.assignment.buildmaster.dao.custom.EmployeeDAO;
 import com.assignment.buildmaster.dto.EmployeeDto;
 import com.assignment.buildmaster.dao.SQLUtil;
+import com.assignment.buildmaster.entity.Employee;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,11 +35,11 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         return employeeIds;
     }
 
-    public EmployeeDto findById(String selectedEmId) throws SQLException {
+    public Employee findById(String selectedEmId) throws SQLException {
         ResultSet rst = SQLUtil.execute("select * from Employee where Employee_ID=?", selectedEmId);
 
         if (rst.next()) {
-            return new EmployeeDto(
+            return new Employee(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),
@@ -49,20 +50,20 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         return null;
     }
 
-    public boolean save(EmployeeDto employeeDto) throws SQLException {
+    public boolean save(Employee entity) throws SQLException {
         return SQLUtil.execute(
                 "insert into Employee values (?,?,?,?,?)",
-                employeeDto.getEmployeeId(),
-                employeeDto.getName(),
-                employeeDto.getPhoneNo(),
-                employeeDto.getAddress(),
-                employeeDto.getRole()
+                entity.getEmployeeId(),
+                entity.getName(),
+                entity.getPhoneNo(),
+                entity.getAddress(),
+                entity.getRole()
         );
     }
 
-    public boolean update(EmployeeDto employeeDto) throws SQLException {
+    public boolean update(Employee entity) throws SQLException {
         String sql = "update Employee set Name=?, Phone_No=?, Address=?, Role=? where Employee_ID=?";
-        return SQLUtil.execute(sql, employeeDto.getName(), employeeDto.getPhoneNo(), employeeDto.getAddress(), employeeDto.getRole(), employeeDto.getEmployeeId());
+        return SQLUtil.execute(sql, entity.getName(), entity.getPhoneNo(), entity.getAddress(), entity.getRole(), entity.getEmployeeId());
     }
 
     public boolean delete(String employeeID) throws SQLException {
@@ -70,12 +71,12 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         return SQLUtil.execute(sql, employeeID);
     }
 
-    public List<EmployeeDto> getAll() throws SQLException {
+    public List<Employee> getAll() throws SQLException {
         ResultSet resultSet = SQLUtil.execute("SELECT * FROM Employee order by Employee_ID asc");
-        List<EmployeeDto> paymentList = new ArrayList<>();
+        List<Employee> paymentList = new ArrayList<>();
 
         while (resultSet.next()) {
-            paymentList.add(new EmployeeDto(
+            paymentList.add(new Employee(
                     resultSet.getString("Employee_ID"),
                     resultSet.getString("Name"),
                     resultSet.getString("Phone_No"),

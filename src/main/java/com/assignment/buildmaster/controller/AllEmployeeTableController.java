@@ -1,5 +1,8 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.bo.BOFactory;
+import com.assignment.buildmaster.bo.custom.EmployeeBO;
+import com.assignment.buildmaster.dao.DAOFactory;
 import com.assignment.buildmaster.dao.custom.EmployeeDAO;
 import com.assignment.buildmaster.dto.EmployeeDto;
 import com.assignment.buildmaster.view.tdm.EmployeeTM;
@@ -44,7 +47,7 @@ public class AllEmployeeTableController {
     @FXML
     private TableView<EmployeeDto> tblEmployee;
 
-    EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getInstance().getBO(BOFactory.BOType.EMPLOYEE);
 
     public void initialize(){
         colEmployeeId.setCellValueFactory(new PropertyValueFactory<>("employeeId"));
@@ -58,7 +61,7 @@ public class AllEmployeeTableController {
 
     private void loadEmployeeData(){
         try {
-            List<EmployeeDto> employees = employeeDAO.getAll();
+            List<EmployeeDto> employees = employeeBO.getAllEmployee();
             ObservableList<EmployeeDto> employeeList = FXCollections.observableArrayList(employees);
             tblEmployee.setItems(employeeList);
         } catch (SQLException e) {

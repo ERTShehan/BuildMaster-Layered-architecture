@@ -1,8 +1,8 @@
 package com.assignment.buildmaster.controller;
 
-import com.assignment.buildmaster.dao.custom.EmployeeDAO;
+import com.assignment.buildmaster.bo.BOFactory;
+import com.assignment.buildmaster.bo.custom.EmployeeBO;
 import com.assignment.buildmaster.dto.EmployeeDto;
-import com.assignment.buildmaster.dao.custom.impl.EmployeeDAOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -29,7 +29,7 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class EmployeeFormController implements Initializable {
-    EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getInstance().getBO(BOFactory.BOType.EMPLOYEE);
 
     @FXML
     private JFXButton btnEmployeeDelete;
@@ -68,7 +68,7 @@ public class EmployeeFormController implements Initializable {
     void cmbClientOnAction(ActionEvent event) throws SQLException {
         String selectedEmployeeId = cmbEmployeeId.getSelectionModel().getSelectedItem();
         if (selectedEmployeeId != null) {
-            EmployeeDto employeeDto = employeeDAO.findById(selectedEmployeeId);
+            EmployeeDto employeeDto = employeeBO.findByEmployeeId(selectedEmployeeId);
 
             if (employeeDto != null) {
                 lblEmployeeID.setText(employeeDto.getEmployeeId());
@@ -95,7 +95,7 @@ public class EmployeeFormController implements Initializable {
 
 
             if(buttonType.get() == ButtonType.YES){
-                boolean isDeleted = employeeDAO.delete(employeeId);
+                boolean isDeleted = employeeBO.deleteEmployee(employeeId);
 
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Employee deleted successfully!").show();
@@ -177,7 +177,7 @@ public class EmployeeFormController implements Initializable {
         if (isValidName && isValidPhone && isValidAddress && isValidRole){
             EmployeeDto employeeDto = new EmployeeDto(employeeId, name, phoneNo, address, role);
 
-            boolean isRegister = employeeDAO.save(employeeDto);
+            boolean isRegister = employeeBO.saveEmployee(employeeDto);
 
             if (isRegister) {
                 new Alert(Alert.AlertType.INFORMATION, "Employee saved...!").show();
@@ -224,7 +224,7 @@ public class EmployeeFormController implements Initializable {
         if (isValidName && isValidPhone && isValidAddress && isValidRole) {
             try {
                 EmployeeDto employeeDto = new EmployeeDto(employeeId, name, phoneNo, address, role);
-                boolean isUpdated = employeeDAO.update(employeeDto);
+                boolean isUpdated = employeeBO.updateEmployee(employeeDto);
 
                 if (isUpdated) {
                     new Alert(Alert.AlertType.INFORMATION, "Employee updated successfully!").show();
@@ -252,7 +252,7 @@ public class EmployeeFormController implements Initializable {
     }
 
     private void refreshPage() throws SQLException {
-        String nextEmployeeID = employeeDAO.getNextId();
+        String nextEmployeeID = employeeBO.getNextEmployeeId();
         lblEmployeeID.setText(nextEmployeeID);
 
         loadEmployeeIds();
@@ -280,7 +280,7 @@ public class EmployeeFormController implements Initializable {
     }
 
     private void loadEmployeeIds() throws SQLException {
-        ArrayList<String> employeeIds = employeeDAO.getAllIds();
+        ArrayList<String> employeeIds = employeeBO.getAllEmployeeIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(employeeIds);
         cmbEmployeeId.setItems(observableList);
