@@ -1,13 +1,13 @@
 package com.assignment.buildmaster.dao.custom;
 
 import com.assignment.buildmaster.dao.CrudDAO;
-import com.assignment.buildmaster.dto.ProjectDto;
+import com.assignment.buildmaster.entity.Project;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface ProjectDAO extends CrudDAO<ProjectDto> {
+public interface ProjectDAO extends CrudDAO<Project> {
 //    public String getNextProjectId()/  getNextId() throws SQLException;
 //    public ArrayList<String> getAllProjectIds() / getAllIds() throws SQLException;
 //    public ProjectDto findByProjectId(String projectId) / findById(String projectId) throws SQLException;

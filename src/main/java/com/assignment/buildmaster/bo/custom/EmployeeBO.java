@@ -15,4 +15,6 @@ public interface EmployeeBO extends SuperBO {
     public boolean updateEmployee(EmployeeDto employeeDto) throws SQLException;
     public boolean deleteEmployee(String employeeID) throws SQLException;
     public List<EmployeeDto> getAllEmployee() throws SQLException;
+    public String getEmployeeName(String employeeId) throws SQLException;
+    public String getEmployeeRole(String employeeId) throws SQLException;
 }

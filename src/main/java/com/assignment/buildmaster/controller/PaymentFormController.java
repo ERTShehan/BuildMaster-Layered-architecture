@@ -1,5 +1,7 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.bo.BOFactory;
+import com.assignment.buildmaster.bo.custom.PaymentBO;
 import com.assignment.buildmaster.dao.custom.PaymentDAO;
 import com.assignment.buildmaster.dto.PaymentDto;
 import com.assignment.buildmaster.dao.custom.impl.PaymentDAOImpl;
@@ -31,7 +33,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class PaymentFormController implements Initializable {
-    PaymentDAO paymentDAO = new PaymentDAOImpl();
+
+    PaymentBO paymentBO = (PaymentBO) BOFactory.getInstance().getBO(BOFactory.BOType.PAYMENT);
 
     @FXML
     private Button btnAllPayment;
@@ -76,9 +79,9 @@ public class PaymentFormController implements Initializable {
     void cmbPaymentIdOnAction(ActionEvent event) throws SQLException {
         String selectedPaymentId = cmbPaymentId.getSelectionModel().getSelectedItem();
         if (selectedPaymentId != null) {
-            PaymentDto paymentDto = paymentDAO.findById(selectedPaymentId);
+            PaymentDto paymentDto = paymentBO.findByPaymentId(selectedPaymentId);
             if (paymentDto != null) {
-                lblProjectNamePayment.setText(paymentDAO.findNameById(paymentDto.getProjectID()));
+                lblProjectNamePayment.setText(paymentBO.findNameByProjectId(paymentDto.getProjectID()));
 
                 lblPaymentID.setText(paymentDto.getPaymentID());
                 cmbProjectIdPayment.setValue(paymentDto.getProjectID());
@@ -98,7 +101,7 @@ public class PaymentFormController implements Initializable {
     void cmbProjectIdLoadPayment(ActionEvent event) throws SQLException {
         String selectedProjectId = cmbProjectIdPayment.getSelectionModel().getSelectedItem();
         if (selectedProjectId != null) {
-            lblProjectNamePayment.setText(paymentDAO.findNameById(selectedProjectId));
+            lblProjectNamePayment.setText(paymentBO.findNameByProjectId(selectedProjectId));
             loadPaymentIdsByProject(selectedProjectId);
         }
         btnPaymentSave.setDisable(false);
@@ -113,7 +116,7 @@ public class PaymentFormController implements Initializable {
             Optional<ButtonType> buttonType = alert.showAndWait();
 
             if(buttonType.get() == ButtonType.YES){
-                boolean isDeleted = paymentDAO.delete(paymentId);
+                boolean isDeleted = paymentBO.deletePayment(paymentId);
 
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Payment deleted successfully!").show();
@@ -169,7 +172,7 @@ public class PaymentFormController implements Initializable {
             try {
                 PaymentDto paymentDto = new PaymentDto(paymentID, projectID, date, type, amount);
 
-                boolean isSaved = paymentDAO.save(paymentDto);
+                boolean isSaved = paymentBO.savePayment(paymentDto);
 
                 if (isSaved) {
                     new Alert(Alert.AlertType.INFORMATION, "Payment saved...!").show();
@@ -219,7 +222,7 @@ public class PaymentFormController implements Initializable {
         if (isValidDate && isValidType && isValidAmount) {
             try {
                 PaymentDto paymentDto = new PaymentDto(paymentID, projectID, date, type, amount);
-                boolean isUpdated = paymentDAO.update(paymentDto);
+                boolean isUpdated = paymentBO.updatePayment(paymentDto);
 
                 if (isUpdated) {
                     new Alert(Alert.AlertType.INFORMATION, "Payment updated successfully!").show();
@@ -267,7 +270,7 @@ public class PaymentFormController implements Initializable {
     }
 
     private void refreshPage() throws SQLException {
-        lblPaymentID.setText(paymentDAO.getNextId());
+        lblPaymentID.setText(paymentBO.getNextPaymentId());
         loadPaymentIds();
         loadProjectIds();
         cmbPaymentId.getSelectionModel().clearSelection();
@@ -276,7 +279,7 @@ public class PaymentFormController implements Initializable {
         txtPaymentType.clear();
         txtPaymentAmount.clear();
         lblProjectNamePayment.setText("");
-        lblPaymentID.setText(paymentDAO.getNextId());
+        lblPaymentID.setText(paymentBO.getNextPaymentId());
         resetFieldStyles();
 
         btnPaymentSave.setDisable(true);
@@ -291,21 +294,21 @@ public class PaymentFormController implements Initializable {
     }
 
     private void loadPaymentIds() throws SQLException {
-        ArrayList<String> paymentIds = paymentDAO.getAllIds();
+        ArrayList<String> paymentIds = paymentBO.getAllPaymentIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(paymentIds);
         cmbPaymentId.setItems(observableList);
     }
 
     private void loadProjectIds() throws SQLException {
-        ArrayList<String> projectIds = paymentDAO.findAllIds();
+        ArrayList<String> projectIds = paymentBO.findAllProjectIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(projectIds);
         cmbProjectIdPayment.setItems(observableList);
     }
 
     private void loadPaymentIdsByProject(String projectId) throws SQLException {
-        ArrayList<String> projectIds = paymentDAO.getAllIdsBy(projectId);
+        ArrayList<String> projectIds = paymentBO.getAllPaymentIdsByProject(projectId);
         cmbPaymentId.setItems(FXCollections.observableArrayList(projectIds));
     }
 }

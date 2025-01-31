@@ -47,18 +47,19 @@ public class EmployeeBOImpl implements EmployeeBO {
         return employeeList;
     }
 
+    public String getEmployeeName(String employeeId) throws SQLException {
+        return employeeDAO.getName(employeeId);
+    }
+
+    public String getEmployeeRole(String employeeId) throws SQLException {
+        return employeeDAO.getInfo(employeeId);
+    }
+
+
 //    public int getCount() throws SQLException {
 //
 //    }
-//
-//    public String getName(String employeeId) throws SQLException {
-//
-//    }
-//
-//    public String getInfo(String employeeId) throws SQLException {
-//
-//    }
-//
+
 //    public String getUnit(String Id) throws SQLException {
 //        return "";
 //    }

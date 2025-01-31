@@ -1,8 +1,7 @@
 package com.assignment.buildmaster.bo;
 
 
-import com.assignment.buildmaster.bo.custom.impl.ClientBOImpl;
-import com.assignment.buildmaster.bo.custom.impl.EmployeeBOImpl;
+import com.assignment.buildmaster.bo.custom.impl.*;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -15,7 +14,7 @@ public class BOFactory {
     }
 
     public enum BOType {
-        CLIENT, EMPLOYEE
+        CLIENT, EMPLOYEE, EXPENSES, PAYMENT, PROJECT
     }
 
     public SuperBO getBO(BOType type) {
@@ -24,8 +23,8 @@ public class BOFactory {
                 return new ClientBOImpl();
             case EMPLOYEE:
                 return new EmployeeBOImpl();
-//            case EXPENSES:
-//                return new ExpensesBOImpl();
+            case EXPENSES:
+                return new ExpensesBOImpl();
 //            case MACHINE:
 //                return new MachineBOImpl();
 //            case MATERIALBUY:
@@ -34,10 +33,10 @@ public class BOFactory {
 //                return new MaterialsBOImpl();
 //            case MATERIALUSAGE:
 //                return new MaterialUsageBOImpl();
-//            case PAYMENT:
-//                return new PaymentBOImpl();
-//            case PROJECT:
-//                return new ProjectBOImpl();
+            case PAYMENT:
+                return new PaymentBOImpl();
+            case PROJECT:
+                return new ProjectBOImpl();
 //            case SUPPLIER:
 //                return new SupplierBOImpl();
 //            case USER:

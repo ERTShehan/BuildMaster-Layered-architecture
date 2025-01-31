@@ -14,7 +14,7 @@ public class DAOFactory {
     }
 
     public enum DAOType {
-        CLIENT, EMPLOYEE
+        CLIENT, EMPLOYEE, EXPENSES, PAYMENT, PROJECT
     }
 
     public SuperDAO getDAO(DAOType type) {
@@ -23,8 +23,8 @@ public class DAOFactory {
                 return new ClientDAOImpl();
             case EMPLOYEE:
                 return new EmployeeDAOImpl();
-//            case EXPENSES:
-//                return new ExpensesDAOImpl();
+            case EXPENSES:
+                return new ExpensesDAOImpl();
 //            case MACHINE:
 //                return new MachineDAOImpl();
 //            case MATERIALBUY:
@@ -33,10 +33,10 @@ public class DAOFactory {
 //                return new MaterialsDAOImpl();
 //            case MATERIALUSAGE:
 //                return new MaterialUsageDAOImpl();
-//            case PAYMENT:
-//                return new PaymentDAOImpl();
-//            case PROJECT:
-//                return new ProjectDAOImpl();
+            case PAYMENT:
+                return new PaymentDAOImpl();
+            case PROJECT:
+                return new ProjectDAOImpl();
 //            case SUPPLIER:
 //                return new SupplierDAOImpl();
 //            case USER:

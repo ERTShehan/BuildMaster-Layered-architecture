@@ -3,6 +3,7 @@ package com.assignment.buildmaster.dao.custom.impl;
 import com.assignment.buildmaster.dao.custom.ProjectDAO;
 import com.assignment.buildmaster.dto.ProjectDto;
 import com.assignment.buildmaster.dao.SQLUtil;
+import com.assignment.buildmaster.entity.Project;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,10 +35,10 @@ public class ProjectDAOImpl implements ProjectDAO {
         return projectIds;
     }
 
-    public ProjectDto findById(String projectId) throws SQLException {
+    public Project findById(String projectId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM Project WHERE Project_ID=?", projectId);
         if (rst.next()) {
-            return new ProjectDto(
+            return new Project(
                     rst.getString(1),  //project id
                     rst.getString(2), //Name
                     rst.getString(3),  //Start date
@@ -78,28 +79,28 @@ public class ProjectDAOImpl implements ProjectDAO {
         return clientIds;
     }
 
-    public boolean save(ProjectDto projectDto) throws SQLException {
+    public boolean save(Project entity) throws SQLException {
         return SQLUtil.execute(
                 "INSERT INTO Project (Project_ID, Name, Start_date, End_date, Type, Status, Client_ID) VALUES (?, ?, ?, ?, ?, ?, ?)",
-                projectDto.getProjectId(),
-                projectDto.getProjectName(),
-                projectDto.getStartDate(),
-                projectDto.getEndDate(),
-                projectDto.getProjectType(),
-                projectDto.getStatus(),
-                projectDto.getClientId()
+                entity.getProjectId(),
+                entity.getProjectName(),
+                entity.getStartDate(),
+                entity.getEndDate(),
+                entity.getProjectType(),
+                entity.getStatus(),
+                entity.getClientId()
         );
     }
 
-    public boolean update(ProjectDto projectDto) throws SQLException {
+    public boolean update(Project entity) throws SQLException {
         return SQLUtil.execute(
                 "update Project set name=?, Start_date=?, End_date=?, Type=?, Status=? where Project_ID=?",
-                projectDto.getProjectName(),
-                projectDto.getStartDate(),
-                projectDto.getEndDate(),
-                projectDto.getProjectType(),
-                projectDto.getStatus(),
-                projectDto.getProjectId()
+                entity.getProjectName(),
+                entity.getStartDate(),
+                entity.getEndDate(),
+                entity.getProjectType(),
+                entity.getStatus(),
+                entity.getProjectId()
 //                projectDto.getClientId()
         );
     }
@@ -109,12 +110,12 @@ public class ProjectDAOImpl implements ProjectDAO {
         return SQLUtil.execute(sql, projectId);
     }
 
-    public List<ProjectDto> getAll() throws SQLException {
+    public List<Project> getAll() throws SQLException {
         ResultSet resultSet = SQLUtil.execute("SELECT * FROM Project order by Project_ID asc");
-        List<ProjectDto> projectList = new ArrayList<>();
+        List<Project> projectList = new ArrayList<>();
 
         while (resultSet.next()) {
-            projectList.add(new ProjectDto(
+            projectList.add(new Project(
                     resultSet.getString("Project_ID"),
                     resultSet.getString("Name"),
                     resultSet.getString("Start_date"),

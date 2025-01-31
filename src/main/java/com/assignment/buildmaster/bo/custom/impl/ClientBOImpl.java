@@ -47,10 +47,10 @@ public class ClientBOImpl implements ClientBO {
         return clientList;
     }
 
-//    public int getCount() throws SQLException {
-//        return clientDAO.getCount();
-//    }
-//
+    public int getCount() throws SQLException {
+        return clientDAO.getCount();
+    }
+
 //    public String getName(String Id) throws SQLException {
 //        return clientDAO.getName(Id);
 //    }

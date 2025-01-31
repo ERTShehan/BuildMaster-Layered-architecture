@@ -3,6 +3,7 @@ package com.assignment.buildmaster.dao.custom.impl;
 import com.assignment.buildmaster.dao.custom.PaymentDAO;
 import com.assignment.buildmaster.dto.PaymentDto;
 import com.assignment.buildmaster.dao.SQLUtil;
+import com.assignment.buildmaster.entity.Payment;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -62,10 +63,10 @@ public class PaymentDAOImpl implements PaymentDAO {
         return paymentIds;
     }
 
-    public PaymentDto findById(String paymentId) throws SQLException {
+    public Payment findById(String paymentId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM Payment WHERE Payment_ID=?", paymentId);
         if (rst.next()) {
-            return new PaymentDto(
+            return new Payment(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),
@@ -76,14 +77,14 @@ public class PaymentDAOImpl implements PaymentDAO {
         return null;
     }
 
-    public boolean save(PaymentDto paymentDto) throws SQLException {
+    public boolean save(Payment entity) throws SQLException {
         String sql = "INSERT INTO Payment (Payment_ID, Project_ID, Date, Type, Amount) VALUES (?, ?, ?, ?, ?)";
-        return SQLUtil.execute(sql, paymentDto.getPaymentID(), paymentDto.getProjectID(), paymentDto.getDate(), paymentDto.getType(), paymentDto.getAmount());
+        return SQLUtil.execute(sql, entity.getPaymentID(), entity.getProjectID(), entity.getDate(), entity.getType(), entity.getAmount());
     }
 
-    public boolean update(PaymentDto paymentDto) throws SQLException {
+    public boolean update(Payment entity) throws SQLException {
         String sql = "UPDATE Payment SET Project_ID = ?, Date = ?, Type = ?, Amount = ? WHERE Payment_ID = ?";
-        return SQLUtil.execute(sql, paymentDto.getProjectID(), paymentDto.getDate(), paymentDto.getType(), paymentDto.getAmount(), paymentDto.getPaymentID());
+        return SQLUtil.execute(sql, entity.getProjectID(), entity.getDate(), entity.getType(), entity.getAmount(), entity.getPaymentID());
     }
 
     public boolean delete(String paymentID) throws SQLException {
@@ -91,12 +92,12 @@ public class PaymentDAOImpl implements PaymentDAO {
         return SQLUtil.execute(sql, paymentID);
     }
 
-    public List<PaymentDto> getAll() throws SQLException {
+    public List<Payment> getAll() throws SQLException {
         ResultSet resultSet = SQLUtil.execute("SELECT * FROM Payment order by Payment_ID asc");
-        List<PaymentDto> paymentList = new ArrayList<>();
+        List<Payment> paymentList = new ArrayList<>();
 
         while (resultSet.next()) {
-            paymentList.add(new PaymentDto(
+            paymentList.add(new Payment(
                     resultSet.getString("Payment_ID"),
                     resultSet.getString("Project_ID"),
                     resultSet.getString("Date"),
