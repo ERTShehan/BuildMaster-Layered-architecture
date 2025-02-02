@@ -1,7 +1,12 @@
 package com.assignment.buildmaster.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
+@Setter
+@Getter
 public class Expenses implements Serializable {
     private String expenseId;
     private String type;
@@ -19,54 +24,6 @@ public class Expenses implements Serializable {
         this.amount = amount;
         this.date = date;
         this.projectId = projectId;
-        this.employeeId = employeeId;
-    }
-
-    public String getExpenseId() {
-        return expenseId;
-    }
-
-    public void setExpenseId(String expenseId) {
-        this.expenseId = expenseId;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public double getAmount() {
-        return amount;
-    }
-
-    public void setAmount(double amount) {
-        this.amount = amount;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
-    }
-
-    public String getEmployeeId() {
-        return employeeId;
-    }
-
-    public void setEmployeeId(String employeeId) {
         this.employeeId = employeeId;
     }
 

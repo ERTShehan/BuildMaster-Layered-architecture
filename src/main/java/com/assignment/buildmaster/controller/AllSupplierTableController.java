@@ -1,5 +1,7 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.bo.BOFactory;
+import com.assignment.buildmaster.bo.custom.SupplierBO;
 import com.assignment.buildmaster.dto.SupplierDto;
 import com.assignment.buildmaster.view.tdm.SupplierTM;
 import com.assignment.buildmaster.dao.custom.impl.SupplierDAOImpl;
@@ -42,7 +44,7 @@ public class AllSupplierTableController {
     @FXML
     private TableView<SupplierDto> tblSuppliers;
 
-    private final SupplierDAOImpl supplierDAOImpl = new SupplierDAOImpl();
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getInstance().getBO(BOFactory.BOType.SUPPLIER);
 
     public void initialize(){
         colSupplierId.setCellValueFactory(new PropertyValueFactory<>("supplierId"));
@@ -56,7 +58,7 @@ public class AllSupplierTableController {
 
     private void loadSupplierData(){
         try {
-            List<SupplierDto> suppliers = supplierDAOImpl.getAll();
+            List<SupplierDto> suppliers = supplierBO.getAllSupplier();
             ObservableList<SupplierDto> supplierList = FXCollections.observableArrayList(suppliers);
             tblSuppliers.setItems(supplierList);
         } catch (Exception e) {

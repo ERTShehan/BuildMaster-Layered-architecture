@@ -2,6 +2,7 @@ package com.assignment.buildmaster.controller;
 
 import com.assignment.buildmaster.dao.custom.MaterialBuyDAO;
 import com.assignment.buildmaster.dao.custom.MaterialDAO;
+import com.assignment.buildmaster.dao.custom.SupplierDAO;
 import com.assignment.buildmaster.dto.MaterialBuyDto;
 import com.assignment.buildmaster.view.tdm.MaterialBuyTM;
 import com.assignment.buildmaster.dao.custom.impl.MaterialBuyDAOImpl;
@@ -108,7 +109,7 @@ public class MaterialBuyController implements Initializable {
 
     MaterialBuyDAO materialBuyDAO = new MaterialBuyDAOImpl();
     MaterialDAO materialDAO = new MaterialDAOImpl();
-    private final SupplierDAOImpl supplierDAOImpl = new SupplierDAOImpl();
+    SupplierDAO supplierDAO = new SupplierDAOImpl();
 
     @FXML
     void cmbMaterialIdLoadBuy(ActionEvent event) throws SQLException {
@@ -124,7 +125,7 @@ public class MaterialBuyController implements Initializable {
     void cmbSupplierIdLoadBuy(ActionEvent event) throws SQLException {
         String selectedSupplierId = cmbSupplierIdBuy.getSelectionModel().getSelectedItem();
         if (selectedSupplierId != null) {
-            lblSupplierNameBuy.setText(supplierDAOImpl.findNameById(selectedSupplierId));
+            lblSupplierNameBuy.setText(supplierDAO.findNameById(selectedSupplierId));
         }
         checkComboBoxSelection();
     }
@@ -345,7 +346,7 @@ public class MaterialBuyController implements Initializable {
     }
 
     private void loadSupplierIds() throws SQLException {
-        ArrayList<String> supplierIds = supplierDAOImpl.getAllIds();
+        ArrayList<String> supplierIds = supplierDAO.getAllIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(supplierIds);
         cmbSupplierIdBuy.setItems(observableList);

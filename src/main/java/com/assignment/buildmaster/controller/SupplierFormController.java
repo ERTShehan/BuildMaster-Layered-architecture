@@ -1,5 +1,7 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.bo.BOFactory;
+import com.assignment.buildmaster.bo.custom.SupplierBO;
 import com.assignment.buildmaster.dto.SupplierDto;
 import com.assignment.buildmaster.dao.custom.impl.SupplierDAOImpl;
 import com.jfoenix.controls.JFXButton;
@@ -28,7 +30,8 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class SupplierFormController implements Initializable {
-    private final SupplierDAOImpl supplierDAOImpl = new SupplierDAOImpl();
+    SupplierBO supplierBO = (SupplierBO) BOFactory.getInstance().getBO(BOFactory.BOType.SUPPLIER);
+//    SupplierDAOImpl supplierDAOImpl = new SupplierDAOImpl();
 
     @FXML
     private JFXButton btnSupplierDelete;
@@ -67,7 +70,7 @@ public class SupplierFormController implements Initializable {
     void cmbSupplierOnAction(ActionEvent event) throws SQLException {
         String selectedSupplierId = cmbSupplierId.getSelectionModel().getSelectedItem();
         if (selectedSupplierId != null) {
-            SupplierDto supplierDto = supplierDAOImpl.findById(selectedSupplierId);
+            SupplierDto supplierDto = supplierBO.findBySupplierId(selectedSupplierId);
 
             if (supplierDto != null) {
                 lblSupplierID.setText(supplierDto.getSupplierId());
@@ -92,7 +95,7 @@ public class SupplierFormController implements Initializable {
             Optional<ButtonType> buttonType = alert.showAndWait();
 
             if(buttonType.get() == ButtonType.YES){
-                boolean isDeleted = supplierDAOImpl.delete(supplierId);
+                boolean isDeleted = supplierBO.deleteSupplier(supplierId);
 
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Supplier deleted successfully!").show();
@@ -138,7 +141,7 @@ public class SupplierFormController implements Initializable {
         if(validation(supplierName, supplierAddress, supplierPhoneNo, supplierEmail)) {
             SupplierDto supplierDto = new SupplierDto(supplierId, supplierName, supplierAddress, supplierPhoneNo, supplierEmail);
 
-            boolean isSaved = supplierDAOImpl.save(supplierDto);
+            boolean isSaved = supplierBO.saveSupplier(supplierDto);
             if (isSaved) {
                 new Alert(Alert.AlertType.INFORMATION, "Supplier saved...!").show();
                 refreshPage();
@@ -167,7 +170,7 @@ public class SupplierFormController implements Initializable {
         if(validation(supplierName, supplierAddress, supplierPhoneNo, supplierEmail)) {
             try {
                 SupplierDto supplierDto = new SupplierDto(supplierId, supplierName, supplierAddress, supplierPhoneNo, supplierEmail);
-                boolean isUpdated = supplierDAOImpl.update(supplierDto);
+                boolean isUpdated = supplierBO.updateSupplier(supplierDto);
 
                 if (isUpdated) {
                     new Alert(Alert.AlertType.INFORMATION, "Supplier updated successfully!").show();
@@ -228,7 +231,7 @@ public class SupplierFormController implements Initializable {
     }
 
     private void refreshPage() throws SQLException {
-        String nextSupplierId = supplierDAOImpl.getNextId();
+        String nextSupplierId = supplierBO.getNextSupplierId();
         lblSupplierID.setText(nextSupplierId);
 
         loadSupplierIds();
@@ -255,7 +258,7 @@ public class SupplierFormController implements Initializable {
     }
 
     private void loadSupplierIds() throws SQLException {
-        ArrayList<String> supplierIds = supplierDAOImpl.getAllIds();
+        ArrayList<String> supplierIds = supplierBO.getAllSupplierIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(supplierIds);
         cmbSupplierId.setItems(observableList);

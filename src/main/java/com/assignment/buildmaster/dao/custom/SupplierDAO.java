@@ -2,10 +2,11 @@ package com.assignment.buildmaster.dao.custom;
 
 import com.assignment.buildmaster.dao.CrudDAO;
 import com.assignment.buildmaster.dto.SupplierDto;
+import com.assignment.buildmaster.entity.Supplier;
 
 import java.sql.SQLException;
 
-public interface SupplierDAO extends CrudDAO<SupplierDto> {
+public interface SupplierDAO extends CrudDAO<Supplier> {
     String findNameById(String supplierId) throws SQLException;
 
 //    public String getNextSupplierId() / getNextId() throws SQLException;

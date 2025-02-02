@@ -16,7 +16,7 @@ public interface ProjectBO extends SuperBO {
     ArrayList<String> findAllClientIds() throws SQLException;
     boolean saveProject(ProjectDto projectDto) throws SQLException;
     boolean updateProject(ProjectDto projectDto) throws SQLException;
-    public boolean deleteProject(String projectId) throws SQLException;
-    public List<ProjectDto> getAllProject() throws SQLException;
-    public String getProjectName(String projectId) throws SQLException;
+    boolean deleteProject(String projectId) throws SQLException;
+    List<ProjectDto> getAllProject() throws SQLException;
+    String getProjectName(String projectId) throws SQLException;
 }

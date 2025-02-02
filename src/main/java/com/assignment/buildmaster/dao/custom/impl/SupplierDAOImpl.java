@@ -1,8 +1,8 @@
 package com.assignment.buildmaster.dao.custom.impl;
 
 import com.assignment.buildmaster.dao.custom.SupplierDAO;
-import com.assignment.buildmaster.dto.SupplierDto;
 import com.assignment.buildmaster.dao.SQLUtil;
+import com.assignment.buildmaster.entity.Supplier;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,10 +34,10 @@ public class SupplierDAOImpl implements SupplierDAO {
         return supplierIds;
     }
 
-    public SupplierDto findById(String selectedSupplierId) throws SQLException {
+    public Supplier findById(String selectedSupplierId) throws SQLException {
         ResultSet rst = SQLUtil.execute("select * from Supplier where Supplier_ID=?", selectedSupplierId);
         if (rst.next()) {
-            return new SupplierDto(
+            return new Supplier(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),
@@ -48,20 +48,20 @@ public class SupplierDAOImpl implements SupplierDAO {
         return null;
     }
 
-    public boolean save(SupplierDto supplierDto) throws SQLException {
+    public boolean save(Supplier entity) throws SQLException {
         return SQLUtil.execute(
                 "insert into Supplier values (?,?,?,?,?)",
-                supplierDto.getSupplierId(),
-                supplierDto.getName(),
-                supplierDto.getAddress(),
-                supplierDto.getPhoneNo(),
-                supplierDto.getEmail()
+                entity.getSupplierId(),
+                entity.getName(),
+                entity.getAddress(),
+                entity.getPhoneNo(),
+                entity.getEmail()
         );
     }
 
-    public boolean update(SupplierDto supplierDto) throws SQLException {
+    public boolean update(Supplier entity) throws SQLException {
         String sql = "update Supplier set Name=?, Address=?, Phone_No=?, Email=? where Supplier_ID=?";
-        return SQLUtil.execute(sql, supplierDto.getName(), supplierDto.getAddress(), supplierDto.getPhoneNo(), supplierDto.getEmail(), supplierDto.getSupplierId());
+        return SQLUtil.execute(sql, entity.getName(), entity.getAddress(), entity.getPhoneNo(), entity.getEmail(), entity.getSupplierId());
     }
 
     public boolean delete(String supplierID) throws SQLException {
@@ -69,12 +69,12 @@ public class SupplierDAOImpl implements SupplierDAO {
         return SQLUtil.execute(sql, supplierID);
     }
 
-    public List<SupplierDto> getAll() throws SQLException {
+    public List<Supplier> getAll() throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT * from Supplier");
-        List<SupplierDto> supplierList = new ArrayList<>();
+        List<Supplier> supplierList = new ArrayList<>();
 
         while(rst.next()) {
-            supplierList.add(new SupplierDto(
+            supplierList.add(new Supplier(
                     rst.getString("Supplier_ID"),
                     rst.getString("Name"),
                     rst.getString("Address"),
