@@ -48,7 +48,7 @@ public class ClientBOImpl implements ClientBO {
     }
 
     public int getCount() throws SQLException {
-        return clientDAO.getCount();
+        return clientDAO.getClientCount();
     }
 
 //    public String getName(String Id) throws SQLException {

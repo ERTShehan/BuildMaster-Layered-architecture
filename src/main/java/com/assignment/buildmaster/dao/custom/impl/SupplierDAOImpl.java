@@ -85,31 +85,6 @@ public class SupplierDAOImpl implements SupplierDAO {
         return supplierList;
     }
 
-    @Override
-    public int getCount() throws SQLException {
-        return 0;
-    }
-
-    @Override
-    public String getName(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public String getInfo(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public String getUnit(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public ArrayList<String> findAllIds() throws SQLException {
-        return null;
-    }
-
     public String findNameById(String supplierId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT Name FROM Supplier where Supplier_ID=?", supplierId);
         if (rst.next()) {
@@ -118,8 +93,4 @@ public class SupplierDAOImpl implements SupplierDAO {
         return null;
     }
 
-    @Override
-    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
-        return null;
-    }
 }

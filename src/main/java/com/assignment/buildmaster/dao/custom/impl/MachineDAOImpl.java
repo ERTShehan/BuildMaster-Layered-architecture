@@ -3,6 +3,7 @@ package com.assignment.buildmaster.dao.custom.impl;
 import com.assignment.buildmaster.dao.custom.MachineDAO;
 import com.assignment.buildmaster.dto.MachineDto;
 import com.assignment.buildmaster.dao.SQLUtil;
+import com.assignment.buildmaster.entity.Machine;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -34,11 +35,11 @@ public class MachineDAOImpl implements MachineDAO {
         return machineIds;
     }
 
-    public MachineDto findById(String selectedMachineId) throws SQLException {
+    public Machine findById(String selectedMachineId) throws SQLException {
         ResultSet rst = SQLUtil.execute("select * from Machine where Machine_ID=?", selectedMachineId);
 
         if (rst.next()) {
-            return new MachineDto(
+            return new Machine(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),
@@ -48,19 +49,19 @@ public class MachineDAOImpl implements MachineDAO {
         return null;
     }
 
-    public boolean save(MachineDto machineDto) throws SQLException {
+    public boolean save(Machine entity) throws SQLException {
         return SQLUtil.execute(
                 "insert into Machine values (?,?,?,?)",
-                machineDto.getMachineId(),
-                machineDto.getName(),
-                machineDto.getStatus(),
-                machineDto.getDescription()
+                entity.getMachineId(),
+                entity.getName(),
+                entity.getStatus(),
+                entity.getDescription()
         );
     }
 
-    public boolean update(MachineDto machineDto) throws SQLException {
+    public boolean update(Machine entity) throws SQLException {
         String sql = "update Machine set Name=?, Status=?, Description=? where Machine_ID=?";
-        return SQLUtil.execute(sql, machineDto.getName(), machineDto.getStatus(), machineDto.getDescription(), machineDto.getMachineId());
+        return SQLUtil.execute(sql, entity.getName(), entity.getStatus(), entity.getDescription(), entity.getMachineId());
     }
 
     public boolean delete(String machineID) throws SQLException {
@@ -68,12 +69,12 @@ public class MachineDAOImpl implements MachineDAO {
         return SQLUtil.execute(sql, machineID);
     }
 
-    public List<MachineDto> getAll() throws SQLException {
+    public List<Machine> getAll() throws SQLException {
         ResultSet resultSet = SQLUtil.execute("SELECT * FROM Machine");
-        List<MachineDto> machineList = new ArrayList<>();
+        List<Machine> machineList = new ArrayList<>();
 
         while (resultSet.next()) {
-            machineList.add(new MachineDto(
+            machineList.add(new Machine(
                     resultSet.getString("Machine_ID"),
                     resultSet.getString("Name"),
                     resultSet.getString("Status"),
@@ -83,38 +84,4 @@ public class MachineDAOImpl implements MachineDAO {
         return machineList;
     }
 
-    @Override
-    public int getCount() throws SQLException {
-        return 0;
-    }
-
-    @Override
-    public String getName(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public String getInfo(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public String getUnit(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public ArrayList<String> findAllIds() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public String findNameById(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
-        return null;
-    }
 }

@@ -1,7 +1,6 @@
 package com.assignment.buildmaster.dao.custom.impl;
 
 import com.assignment.buildmaster.dao.custom.ProjectDAO;
-import com.assignment.buildmaster.dto.ProjectDto;
 import com.assignment.buildmaster.dao.SQLUtil;
 import com.assignment.buildmaster.entity.Project;
 
@@ -128,22 +127,12 @@ public class ProjectDAOImpl implements ProjectDAO {
         return projectList;
     }
 
-    @Override
-    public int getCount() throws SQLException {
-        return 0;
-    }
-
     public String getInfo(String projectId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT Name FROM Project where Project_ID=?", projectId);
         if (rst.next()) {
             return rst.getString(1);
         }
         return null;
-    }
-
-    @Override
-    public String getUnit(String Id) throws SQLException {
-        return "";
     }
 
     public String getName(String projectId) throws SQLException {

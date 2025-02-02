@@ -1,12 +1,10 @@
 package com.assignment.buildmaster.controller;
 
-import com.assignment.buildmaster.dao.custom.EmployeeDAO;
-import com.assignment.buildmaster.dao.custom.ExpensesDAO;
-import com.assignment.buildmaster.dao.custom.ProjectDAO;
+import com.assignment.buildmaster.bo.BOFactory;
+import com.assignment.buildmaster.bo.custom.EmployeeBO;
+import com.assignment.buildmaster.bo.custom.ExpensesBO;
+import com.assignment.buildmaster.bo.custom.ProjectBO;
 import com.assignment.buildmaster.dto.ExpensesDto;
-import com.assignment.buildmaster.dao.custom.impl.EmployeeDAOImpl;
-import com.assignment.buildmaster.dao.custom.impl.ExpensesDAOImpl;
-import com.assignment.buildmaster.dao.custom.impl.ProjectDAOImpl;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
@@ -84,16 +82,19 @@ public class ExpensesFormController implements Initializable {
     @FXML
     private JFXTextField txtExpensesDate;
 
-    ExpensesDAO expensesDAO = new ExpensesDAOImpl();
-    EmployeeDAO employeeDAO = new EmployeeDAOImpl();
-    ProjectDAO projectDAO = new ProjectDAOImpl();
+    ExpensesBO expensesBO = (ExpensesBO) BOFactory.getInstance().getBO(BOFactory.BOType.EXPENSES);
+    EmployeeBO employeeBO = (EmployeeBO) BOFactory.getInstance().getBO(BOFactory.BOType.EMPLOYEE);
+    ProjectBO projectBO = (ProjectBO) BOFactory.getInstance().getBO(BOFactory.BOType.PROJECT);
+//    ExpensesDAO expensesDAO = new ExpensesDAOImpl();
+//    EmployeeDAO employeeDAO = new EmployeeDAOImpl();
+//    ProjectDAO projectDAO = new ProjectDAOImpl();
 
     @FXML
     void cmbEmployeeIdLoadExpenses(ActionEvent event) throws SQLException {
         String selectedEmployeeId = cmbEmployeeIdExpense.getSelectionModel().getSelectedItem();
         if (selectedEmployeeId != null) {
-            lblExpenseEmployeeName.setText(employeeDAO.getName(selectedEmployeeId));
-            lblExpenseEmployeeRole.setText(employeeDAO.getInfo(selectedEmployeeId));
+            lblExpenseEmployeeName.setText(employeeBO.getEmployeeName(selectedEmployeeId));
+            lblExpenseEmployeeRole.setText(employeeBO.getEmployeeRole(selectedEmployeeId));
         }
         btnExpensesSave.setDisable(true);
 
@@ -104,7 +105,7 @@ public class ExpensesFormController implements Initializable {
     void cmbExpenseIdOnAction(ActionEvent event) throws SQLException {
         String selectedExpenseId = cmbExpenseId.getSelectionModel().getSelectedItem();
         if (selectedExpenseId != null) {
-            ExpensesDto expensesDto = expensesDAO.findById(selectedExpenseId);
+            ExpensesDto expensesDto = expensesBO.findByExpensesId(selectedExpenseId);
 
             if (expensesDto != null) {
                 lblExpenseID.setText(expensesDto.getExpenseId());
@@ -125,7 +126,7 @@ public class ExpensesFormController implements Initializable {
     void cmbProjectIdLoadExpenses(ActionEvent event) throws SQLException {
         String selectedProjectId = cmbProjectIdExpense.getSelectionModel().getSelectedItem();
         if (selectedProjectId != null) {
-            lblExpenseProjectName.setText(projectDAO.getName(selectedProjectId));
+            lblExpenseProjectName.setText(projectBO.getProjectName(selectedProjectId));
         }
         checkComboBoxSelection();
     }
@@ -144,7 +145,7 @@ public class ExpensesFormController implements Initializable {
             Optional<ButtonType> buttonType = alert.showAndWait();
 
             if(buttonType.get() == ButtonType.YES){
-                boolean isDeleted = expensesDAO.delete(expenseId);
+                boolean isDeleted = expensesBO.deleteExpenses(expenseId);
 
                 if (isDeleted) {
                     new Alert(Alert.AlertType.INFORMATION, "Expense deleted successfully!").show();
@@ -182,7 +183,7 @@ public class ExpensesFormController implements Initializable {
             try {
                 double amount = Double.parseDouble(amountText);
                 ExpensesDto expensesDto = new ExpensesDto(expenseId, type, amount, date, projectId, employeeId);
-                boolean isSaved = expensesDAO.save(expensesDto);
+                boolean isSaved = expensesBO.saveExpenses(expensesDto);
 
                 if (isSaved) {
                     new Alert(Alert.AlertType.INFORMATION, "Expense saved...!").show();
@@ -219,7 +220,7 @@ public class ExpensesFormController implements Initializable {
             try {
                 double amount = Double.parseDouble(amountText);
                 ExpensesDto expensesDto = new ExpensesDto(expenseId, type, amount, date, projectId, employeeId);
-                boolean isUpdated = expensesDAO.update(expensesDto);
+                boolean isUpdated = expensesBO.updateExpenses(expensesDto);
                 if(isUpdated) {
                     new Alert(Alert.AlertType.INFORMATION, "Expense update...!").show();
                     refreshPage();
@@ -292,7 +293,7 @@ public class ExpensesFormController implements Initializable {
     }
 
     private void refreshPage() throws SQLException {
-        String nextExpensesId = expensesDAO.getNextId();
+        String nextExpensesId = expensesBO.getNextExpensesId();
         lblExpenseID.setText(nextExpensesId);
 
         loadExpensesIds();
@@ -319,21 +320,21 @@ public class ExpensesFormController implements Initializable {
     }
 
     private void loadExpensesIds() throws SQLException {
-        ArrayList<String> expensesIds = expensesDAO.getAllIds();
+        ArrayList<String> expensesIds = expensesBO.getAllExpensesIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(expensesIds);
         cmbExpenseId.setItems(observableList);
     }
 
     private void loadEmployeeIds() throws SQLException {
-        ArrayList<String> employeeIds = employeeDAO.getAllIds();
+        ArrayList<String> employeeIds = employeeBO.getAllEmployeeIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(employeeIds);
         cmbEmployeeIdExpense.setItems(observableList);
     }
 
     private void loadProjectIds() throws SQLException {
-        ArrayList<String> projectIds = projectDAO.getAllIds();
+        ArrayList<String> projectIds = projectBO.getAllProjectIds();
         ObservableList<String> observableList = FXCollections.observableArrayList();
         observableList.addAll(projectIds);
         cmbProjectIdExpense.setItems(observableList);

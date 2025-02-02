@@ -1,5 +1,7 @@
 package com.assignment.buildmaster.controller;
 
+import com.assignment.buildmaster.bo.BOFactory;
+import com.assignment.buildmaster.bo.custom.ExpensesBO;
 import com.assignment.buildmaster.dao.custom.ExpensesDAO;
 import com.assignment.buildmaster.dto.ExpensesDto;
 import com.assignment.buildmaster.view.tdm.ExpensesTM;
@@ -46,7 +48,8 @@ public class AllExpensesTableController {
     @FXML
     private TableView<ExpensesDto> tblExpenses;
 
-    ExpensesDAO expensesDAO = new ExpensesDAOImpl();
+//    ExpensesDAO expensesDAO = new ExpensesDAOImpl();
+    ExpensesBO expensesBO = (ExpensesBO) BOFactory.getInstance().getBO(BOFactory.BOType.EXPENSES);
 
     public void initialize(){
         colExpensesId.setCellValueFactory(new PropertyValueFactory<>("expenseId"));
@@ -61,7 +64,7 @@ public class AllExpensesTableController {
 
     private void loadExpensesData(){
         try {
-            List<ExpensesDto> expenses = expensesDAO.getAll();
+            List<ExpensesDto> expenses = expensesBO.getAllExpenses();
             ObservableList<ExpensesDto> expensesList = FXCollections.observableArrayList(expenses);
             tblExpenses.setItems(expensesList);
         } catch (Exception e) {

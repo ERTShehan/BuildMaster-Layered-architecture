@@ -1,7 +1,6 @@
 package com.assignment.buildmaster.dao.custom.impl;
 
 import com.assignment.buildmaster.dao.custom.ClientDAO;
-import com.assignment.buildmaster.dto.ClientDto;
 import com.assignment.buildmaster.dao.SQLUtil;
 import com.assignment.buildmaster.entity.Client;
 
@@ -87,41 +86,11 @@ public class ClientDAOImpl implements ClientDAO {
         return clientList;
     }
 
-    public int getCount() throws SQLException {
+    public int getClientCount() throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT COUNT(*) AS client_count FROM Client");
         if (rst.next()) {
             return rst.getInt("client_count");
         }
         return 0;
-    }
-
-    @Override
-    public String getName(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public String getInfo(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public String getUnit(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public ArrayList<String> findAllIds() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public String findNameById(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
-        return null;
     }
 }

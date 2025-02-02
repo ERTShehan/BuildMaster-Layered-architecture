@@ -108,23 +108,4 @@ public class PaymentDAOImpl implements PaymentDAO {
         return paymentList;
     }
 
-    @Override
-    public int getCount() throws SQLException {
-        return 0;
-    }
-
-    @Override
-    public String getName(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public String getInfo(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public String getUnit(String Id) throws SQLException {
-        return "";
-    }
 }

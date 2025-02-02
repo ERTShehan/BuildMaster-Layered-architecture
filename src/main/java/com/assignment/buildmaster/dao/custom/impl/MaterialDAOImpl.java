@@ -81,31 +81,11 @@ public class MaterialDAOImpl implements MaterialDAO {
         return materialList;
     }
 
-    @Override
-    public int getCount() throws SQLException {
-        return 0;
-    }
-
     public String getUnit(String materialId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT Unit FROM Material where Material_ID=?", materialId);
         if (rst.next()) {
             return rst.getString(1);
         }
-        return null;
-    }
-
-    @Override
-    public ArrayList<String> findAllIds() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public String findNameById(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
         return null;
     }
 
@@ -115,11 +95,6 @@ public class MaterialDAOImpl implements MaterialDAO {
             return rst.getString(1);
         }
         return null;
-    }
-
-    @Override
-    public String getInfo(String Id) throws SQLException {
-        return "";
     }
 
 }

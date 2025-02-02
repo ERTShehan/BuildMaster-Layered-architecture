@@ -3,6 +3,7 @@ package com.assignment.buildmaster.dao.custom.impl;
 import com.assignment.buildmaster.dao.custom.ExpensesDAO;
 import com.assignment.buildmaster.dto.ExpensesDto;
 import com.assignment.buildmaster.dao.SQLUtil;
+import com.assignment.buildmaster.entity.Expenses;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,10 +34,10 @@ public class ExpensesDAOImpl implements ExpensesDAO {
         return expensesIds;
     }
 
-    public ExpensesDto findById(String selectedExpenseId) throws SQLException {
+    public Expenses findById(String selectedExpenseId) throws SQLException {
         ResultSet rst = SQLUtil.execute("select * from Expenses where Expense_ID=?", selectedExpenseId);
         if (rst.next()){
-            return new ExpensesDto(
+            return new Expenses(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getDouble(3),
@@ -48,27 +49,27 @@ public class ExpensesDAOImpl implements ExpensesDAO {
         return null;
     }
 
-    public boolean save(ExpensesDto expensesDto) throws SQLException {
+    public boolean save(Expenses entity) throws SQLException {
         return SQLUtil.execute(
                 "insert into Expenses values (?,?,?,?,?,?)",
-                expensesDto.getExpenseId(),
-                expensesDto.getType(),
-                expensesDto.getAmount(),
-                expensesDto.getDate(),
-                expensesDto.getProjectId(),
-                expensesDto.getEmployeeId()
+                entity.getExpenseId(),
+                entity.getType(),
+                entity.getAmount(),
+                entity.getDate(),
+                entity.getProjectId(),
+                entity.getEmployeeId()
         );
     }
 
-    public boolean update(ExpensesDto expensesDto) throws SQLException {
+    public boolean update(Expenses entity) throws SQLException {
         return SQLUtil.execute(
                 "update Expenses set Type=?, Amount=?, Date=?, Project_ID=?, Employee_ID=? where Expense_ID=?",
-                expensesDto.getType(),
-                expensesDto.getAmount(),
-                expensesDto.getDate(),
-                expensesDto.getProjectId(),
-                expensesDto.getEmployeeId(),
-                expensesDto.getExpenseId()
+                entity.getType(),
+                entity.getAmount(),
+                entity.getDate(),
+                entity.getProjectId(),
+                entity.getEmployeeId(),
+                entity.getExpenseId()
         );
     }
 
@@ -81,11 +82,11 @@ public class ExpensesDAOImpl implements ExpensesDAO {
         );
     }
 
-    public List<ExpensesDto> getAll() throws SQLException {
+    public List<Expenses> getAll() throws SQLException {
         ResultSet resultSet = SQLUtil.execute("SELECT * FROM Expenses");
-        List<ExpensesDto> expensesList = new ArrayList<>();
+        List<Expenses> expensesList = new ArrayList<>();
         while (resultSet.next()) {
-            expensesList.add(new ExpensesDto(
+            expensesList.add(new Expenses(
                     resultSet.getString("Expense_ID"),
                     resultSet.getString("Type"),
                     resultSet.getDouble("Amount"),
@@ -97,38 +98,4 @@ public class ExpensesDAOImpl implements ExpensesDAO {
         return expensesList;
     }
 
-    @Override
-    public int getCount() throws SQLException {
-        return 0;
-    }
-
-    @Override
-    public String getName(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public String getInfo(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public String getUnit(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public ArrayList<String> findAllIds() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public String findNameById(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
-        return null;
-    }
 }

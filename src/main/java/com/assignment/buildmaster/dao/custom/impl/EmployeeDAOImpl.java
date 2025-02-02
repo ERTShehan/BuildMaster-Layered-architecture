@@ -1,7 +1,6 @@
 package com.assignment.buildmaster.dao.custom.impl;
 
 import com.assignment.buildmaster.dao.custom.EmployeeDAO;
-import com.assignment.buildmaster.dto.EmployeeDto;
 import com.assignment.buildmaster.dao.SQLUtil;
 import com.assignment.buildmaster.entity.Employee;
 
@@ -87,11 +86,6 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         return paymentList;
     }
 
-    @Override
-    public int getCount() throws SQLException {
-        return 0;
-    }
-
     public String getName(String employeeId) throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT Name FROM Employee where Employee_ID=?", employeeId);
         if (rst.next()) {
@@ -108,23 +102,4 @@ public class EmployeeDAOImpl implements EmployeeDAO {
         return null;
     }
 
-    @Override
-    public String getUnit(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public ArrayList<String> findAllIds() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public String findNameById(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
-        return null;
-    }
 }

@@ -8,5 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface PaymentDAO extends CrudDAO<Payment> {
-
+    ArrayList<String> findAllIds() throws SQLException;
+    String findNameById(String Id) throws SQLException;
+    ArrayList<String> getAllIdsBy(String Id) throws SQLException;
 }

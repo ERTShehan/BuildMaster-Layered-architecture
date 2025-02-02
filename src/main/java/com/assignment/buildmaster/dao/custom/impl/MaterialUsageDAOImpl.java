@@ -138,40 +138,6 @@ public class MaterialUsageDAOImpl implements MaterialUsageDAO {
         return usageList;
     }
 
-    @Override
-    public int getCount() throws SQLException {
-        return 0;
-    }
-
-    @Override
-    public String getName(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public String getInfo(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public String getUnit(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public ArrayList<String> findAllIds() throws SQLException {
-        return null;
-    }
-
-    @Override
-    public String findNameById(String Id) throws SQLException {
-        return "";
-    }
-
-    @Override
-    public ArrayList<String> getAllIdsBy(String Id) throws SQLException {
-        return null;
-    }
 
     public boolean delete(String usageId) throws SQLException {
 //        String sql = "DELETE FROM MaterialUsage WHERE Usage_ID=?";

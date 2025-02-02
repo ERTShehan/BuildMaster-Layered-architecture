@@ -94,7 +94,7 @@ public class DashboardController implements Initializable {
     }
 
     private void loadClientCount() throws SQLException {
-        int count = clientDAO.getCount();
+        int count = clientDAO.getClientCount();
         lblClientCount.setText(String.valueOf(count));
     }
 

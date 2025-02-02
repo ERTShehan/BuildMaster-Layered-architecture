@@ -14,7 +14,7 @@ public class BOFactory {
     }
 
     public enum BOType {
-        CLIENT, EMPLOYEE, EXPENSES, PAYMENT, PROJECT
+        CLIENT, EMPLOYEE, EXPENSES, MACHINE, PAYMENT, PROJECT
     }
 
     public SuperBO getBO(BOType type) {
@@ -25,8 +25,8 @@ public class BOFactory {
                 return new EmployeeBOImpl();
             case EXPENSES:
                 return new ExpensesBOImpl();
-//            case MACHINE:
-//                return new MachineBOImpl();
+            case MACHINE:
+                return new MachineBOImpl();
 //            case MATERIALBUY:
 //                return new MaterialBuyBOImpl();
 //            case MATERIALS:
