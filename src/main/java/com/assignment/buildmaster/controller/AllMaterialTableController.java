@@ -1,9 +1,9 @@
 package com.assignment.buildmaster.controller;
 
-import com.assignment.buildmaster.dao.custom.MaterialDAO;
+import com.assignment.buildmaster.bo.BOFactory;
+import com.assignment.buildmaster.bo.custom.MaterialBO;
 import com.assignment.buildmaster.dto.MaterialDto;
 import com.assignment.buildmaster.view.tdm.MaterialTM;
-import com.assignment.buildmaster.dao.custom.impl.MaterialDAOImpl;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -15,7 +15,7 @@ import javafx.scene.layout.AnchorPane;
 import java.util.List;
 
 public class AllMaterialTableController {
-    MaterialDAO materialDAO = new MaterialDAOImpl();
+    MaterialBO materialBO = (MaterialBO) BOFactory.getInstance().getBO(BOFactory.BOType.MATERIAL);
 
     @FXML
     private TableColumn<MaterialTM, String> colMaterialId;
@@ -46,7 +46,7 @@ public class AllMaterialTableController {
 
     private void loadMaterialData(){
         try {
-            List<MaterialDto> materials = materialDAO.getAll();
+            List<MaterialDto> materials = materialBO.getAllMaterial();
             ObservableList<MaterialDto> materialList = FXCollections.observableArrayList(materials);
             tblMaterials.setItems(materialList);
         } catch (Exception e) {

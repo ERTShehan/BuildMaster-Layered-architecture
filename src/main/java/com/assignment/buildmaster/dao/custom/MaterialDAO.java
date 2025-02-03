@@ -1,13 +1,13 @@
 package com.assignment.buildmaster.dao.custom;
 
 import com.assignment.buildmaster.dao.CrudDAO;
-import com.assignment.buildmaster.dto.MaterialDto;
+import com.assignment.buildmaster.entity.Material;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface MaterialDAO extends CrudDAO<MaterialDto> {
+public interface MaterialDAO extends CrudDAO<Material> {
     String getUnit(String materialId) throws SQLException;
     String getName(String materialId) throws SQLException;
 

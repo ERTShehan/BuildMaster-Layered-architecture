@@ -3,6 +3,7 @@ package com.assignment.buildmaster.dao.custom.impl;
 import com.assignment.buildmaster.dao.custom.MaterialDAO;
 import com.assignment.buildmaster.dto.MaterialDto;
 import com.assignment.buildmaster.dao.SQLUtil;
+import com.assignment.buildmaster.entity.Material;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -33,19 +34,19 @@ public class MaterialDAOImpl implements MaterialDAO {
         return materialIds;
     }
 
-    public boolean save(MaterialDto materialDto) throws SQLException {
+    public boolean save(Material entity) throws SQLException {
         return SQLUtil.execute(
                 "insert into Material values (?,?,?,?)",
-                materialDto.getMaterialId(),
-                materialDto.getName(),
-                materialDto.getQty(),
-                materialDto.getUnit()
+                entity.getMaterialId(),
+                entity.getName(),
+                entity.getQty(),
+                entity.getUnit()
         );
     }
 
-    public boolean update(MaterialDto materialDto) throws SQLException {
+    public boolean update(Material entity) throws SQLException {
         String sql = "update Material set Name=?, Quantity_in_Stock=?, Unit=? where Material_ID=?";
-        return SQLUtil.execute(sql, materialDto.getName(), materialDto.getQty(), materialDto.getUnit(), materialDto.getMaterialId());
+        return SQLUtil.execute(sql, entity.getName(), entity.getQty(), entity.getUnit(), entity.getMaterialId());
     }
 
     public boolean delete(String materialId) throws SQLException {
@@ -53,10 +54,10 @@ public class MaterialDAOImpl implements MaterialDAO {
         return SQLUtil.execute(sql, materialId);
     }
 
-    public MaterialDto findById(String selectedMaterialId) throws SQLException {
+    public Material findById(String selectedMaterialId) throws SQLException {
         ResultSet rst = SQLUtil.execute("select * from Material where Material_ID=?", selectedMaterialId);
         if (rst.next()){
-            return new MaterialDto(
+            return new Material(
                     rst.getString(1),
                     rst.getString(2),
                     rst.getString(3),
@@ -66,12 +67,12 @@ public class MaterialDAOImpl implements MaterialDAO {
         return null;
     }
 
-    public List<MaterialDto> getAll() throws SQLException {
+    public List<Material> getAll() throws SQLException {
         ResultSet rst = SQLUtil.execute("SELECT * FROM Material");
-        List<MaterialDto> materialList = new ArrayList<>();
+        List<Material> materialList = new ArrayList<>();
 
         while (rst.next()) {
-            materialList.add(new MaterialDto(
+            materialList.add(new Material(
                     rst.getString("Material_ID"),
                     rst.getString("Name"),
                     rst.getString("Quantity_in_Stock"),
