@@ -1,13 +1,15 @@
 package com.assignment.buildmaster.dao.custom.impl;
 
+import com.assignment.buildmaster.dao.custom.DashboardDAO;
 import com.assignment.buildmaster.view.tdm.ProjectExpensesTM;
 import com.assignment.buildmaster.dao.SQLUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class DashboardDAOImpl {
+public class DashboardDAOImpl implements DashboardDAO {
     public ArrayList<String> getAllProjectName() throws SQLException {
         ResultSet rst = SQLUtil.execute("select Name from Project");
         ArrayList<String> projectNames = new ArrayList<>();
@@ -61,5 +63,40 @@ public class DashboardDAOImpl {
             projectList.add(new ProjectExpensesTM(projectID, projectName, totalExpenses, totalMaterialCost, projectTotalCost));
         }
         return projectList;
+    }
+
+    @Override
+    public boolean save(Object dto) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean update(Object dto) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public String getNextId() throws SQLException {
+        return "";
+    }
+
+    @Override
+    public Object findById(String selectedId) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getAllIds() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public boolean delete(String ID) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public List getAll() throws SQLException {
+        return List.of();
     }
 }

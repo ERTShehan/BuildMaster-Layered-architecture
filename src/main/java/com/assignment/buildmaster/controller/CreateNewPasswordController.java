@@ -1,6 +1,7 @@
 package com.assignment.buildmaster.controller;
 
-import com.assignment.buildmaster.dao.custom.impl.UserDAOImpl;
+import com.assignment.buildmaster.bo.BOFactory;
+import com.assignment.buildmaster.bo.custom.UserBO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import javafx.animation.PauseTransition;
@@ -17,7 +18,8 @@ import java.io.IOException;
 
 public class CreateNewPasswordController {
 
-    private final UserDAOImpl userDAOImpl = new UserDAOImpl();
+    UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOType.USER);
+//    UserDAO userDAO = new UserDAOImpl();
 
     @FXML
     private JFXButton btnSavePassword;
@@ -38,7 +40,7 @@ public class CreateNewPasswordController {
 
         if (!newPassword.equals(confirmPassword)){
             showAlert("Error", "Passwords do not match.");
-        } else if (userDAOImpl.updatePassword(ForgotPasswordController.userEmail, newPassword)) {
+        } else if (userBO.updatePassword(ForgotPasswordController.userEmail, newPassword)) {
             showAlert("Success", "Password updated successfully!");
             loadResetPasswordForm();
         } else {

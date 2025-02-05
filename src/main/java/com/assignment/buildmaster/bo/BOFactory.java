@@ -14,7 +14,7 @@ public class BOFactory {
     }
 
     public enum BOType {
-        CLIENT, EMPLOYEE, EXPENSES, MACHINE, MATERIAL, PAYMENT, PROJECT, SUPPLIER
+        CLIENT, EMPLOYEE, EXPENSES, MACHINE, MATERIALBUY, MATERIAL, MATERIALUSAGE, PAYMENT, PROJECT, SUPPLIER, USER
     }
 
     public SuperBO getBO(BOType type) {
@@ -27,20 +27,20 @@ public class BOFactory {
                 return new ExpensesBOImpl();
             case MACHINE:
                 return new MachineBOImpl();
-//            case MATERIALBUY:
-//                return new MaterialBuyBOImpl();
+            case MATERIALBUY:
+                return new MaterialBuyBOImpl();
             case MATERIAL:
                 return new MaterialBOImpl();
-//            case MATERIALUSAGE:
-//                return new MaterialUsageBOImpl();
+            case MATERIALUSAGE:
+                return new MaterialUsageBOImpl();
             case PAYMENT:
                 return new PaymentBOImpl();
             case PROJECT:
                 return new ProjectBOImpl();
             case SUPPLIER:
                 return new SupplierBOImpl();
-//            case USER:
-//                return new UserBOImpl();
+            case USER:
+                return new UserBOImpl();
             default:
                 return null;
         }

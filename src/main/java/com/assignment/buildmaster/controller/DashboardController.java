@@ -1,6 +1,7 @@
 package com.assignment.buildmaster.controller;
 
 import com.assignment.buildmaster.dao.custom.ClientDAO;
+import com.assignment.buildmaster.dao.custom.DashboardDAO;
 import com.assignment.buildmaster.view.tdm.ProjectExpensesTM;
 import com.assignment.buildmaster.dao.custom.impl.ClientDAOImpl;
 import com.assignment.buildmaster.dao.custom.impl.DashboardDAOImpl;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class DashboardController implements Initializable {
-    private final DashboardDAOImpl dashboardDAOImpl = new DashboardDAOImpl();
+    DashboardDAO dashboardDAO = new DashboardDAOImpl();
     ClientDAO clientDAO = new ClientDAOImpl();
 
     @FXML
@@ -84,7 +85,7 @@ public class DashboardController implements Initializable {
 
     private void loadProjectName(){
         try {
-            ArrayList<String> projectName = dashboardDAOImpl.getAllProjectName();
+            ArrayList<String> projectName = dashboardDAO.getAllProjectName();
             ObservableList<String> observableList = FXCollections.observableArrayList();
             observableList.addAll(projectName);
             listAllProject.setItems(observableList);
@@ -99,23 +100,23 @@ public class DashboardController implements Initializable {
     }
 
     private void loadTotalIncome() throws SQLException {
-        double totalCash = dashboardDAOImpl.getTotalIncome();
+        double totalCash = dashboardDAO.getTotalIncome();
         lblTotalIncome.setText(String.valueOf(totalCash));
     }
 
     private void loadTotalExpenses() throws SQLException {
-        double totalExpenses = dashboardDAOImpl.getAllExpenses();
+        double totalExpenses = dashboardDAO.getAllExpenses();
         lblTotalExpenses.setText(String.valueOf(totalExpenses));
     }
 
     private void loadTotalProfit() throws SQLException {
-        double totalCash = dashboardDAOImpl.getTotalIncome();
-        double totalExpenses = dashboardDAOImpl.getAllExpenses();
+        double totalCash = dashboardDAO.getTotalIncome();
+        double totalExpenses = dashboardDAO.getAllExpenses();
         lblTotalProfit.setText(String.valueOf(totalCash - totalExpenses));
     }
 
     private void loadProjectData() throws SQLException {
-        ObservableList<ProjectExpensesTM> projectList = FXCollections.observableArrayList(dashboardDAOImpl.getProjectDetails());
+        ObservableList<ProjectExpensesTM> projectList = FXCollections.observableArrayList(dashboardDAO.getProjectDetails());
 
         colProjectID.setCellValueFactory(new PropertyValueFactory<>("projectID"));
         colProjectName.setCellValueFactory(new PropertyValueFactory<>("projectName"));

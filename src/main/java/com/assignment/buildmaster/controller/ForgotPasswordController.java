@@ -1,6 +1,7 @@
 package com.assignment.buildmaster.controller;
 
-import com.assignment.buildmaster.dao.custom.impl.UserDAOImpl;
+import com.assignment.buildmaster.bo.BOFactory;
+import com.assignment.buildmaster.bo.custom.UserBO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTextField;
 import javafx.animation.PauseTransition;
@@ -21,7 +22,8 @@ import java.util.Properties;
 import java.util.Random;
 
 public class ForgotPasswordController {
-    UserDAOImpl userDAOImpl = new UserDAOImpl();
+    UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOType.USER);
+//    UserDAO userDAO = new UserDAOImpl();
     static String userEmail;
     static String OTP;
 
@@ -38,7 +40,7 @@ public class ForgotPasswordController {
     void onGetOtpAction(ActionEvent event) {
         String email = txtEmail.getText().trim();
 
-        Pair<Boolean, String> conform = userDAOImpl.checkGmail(email);
+        Pair<Boolean, String> conform = userBO.checkGmail(email);
         userEmail = conform.getValue();
 
         if (email.isEmpty()) {

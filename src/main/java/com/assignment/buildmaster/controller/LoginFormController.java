@@ -1,7 +1,8 @@
 package com.assignment.buildmaster.controller;
 
 import com.assignment.buildmaster.AppInitializer;
-import com.assignment.buildmaster.dao.custom.impl.UserDAOImpl;
+import com.assignment.buildmaster.bo.BOFactory;
+import com.assignment.buildmaster.bo.custom.UserBO;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
@@ -47,7 +48,8 @@ public class LoginFormController {
             alert.setContentText("Failed to load ForgotPasswordForm!");
         }
     }
-    UserDAOImpl userDAOImpl = new UserDAOImpl();
+    UserBO userBO = (UserBO) BOFactory.getInstance().getBO(BOFactory.BOType.USER);
+//    UserDAO userDAO = new UserDAOImpl();
 
     @FXML
     void onSignAction(ActionEvent event) throws IOException {
@@ -63,8 +65,8 @@ public class LoginFormController {
                 alert("Logging Error!","Please fill the password field.");
             }
         } else {
-            boolean logging = userDAOImpl.verifyUser(email, password);
-            logging = true;
+            boolean logging = userBO.verifyUser(email, password);
+//            logging = true;
             if (!logging) {
                 alert("Logging Error!", "Your username and password don't match.");
             } else {

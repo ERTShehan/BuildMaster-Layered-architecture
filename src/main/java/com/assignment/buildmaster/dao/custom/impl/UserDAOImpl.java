@@ -1,12 +1,16 @@
 package com.assignment.buildmaster.dao.custom.impl;
 
 import com.assignment.buildmaster.dao.SQLUtil;
+import com.assignment.buildmaster.dao.custom.UserDAO;
+import com.assignment.buildmaster.entity.User;
 import javafx.util.Pair;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class UserDAOImpl {
+public class UserDAOImpl implements UserDAO {
     public boolean verifyUser(String email, String password){
         try {
 //            Connection connection = DBConnection.getInstance().getConnection();
@@ -50,5 +54,40 @@ public class UserDAOImpl {
             e.printStackTrace();
             return false;
         }
+    }
+
+    @Override
+    public boolean save(User dto) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public boolean update(User dto) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public String getNextId() throws SQLException {
+        return "";
+    }
+
+    @Override
+    public User findById(String selectedId) throws SQLException {
+        return null;
+    }
+
+    @Override
+    public ArrayList<String> getAllIds() throws SQLException {
+        return null;
+    }
+
+    @Override
+    public boolean delete(String ID) throws SQLException {
+        return false;
+    }
+
+    @Override
+    public List getAll() throws SQLException {
+        return List.of();
     }
 }

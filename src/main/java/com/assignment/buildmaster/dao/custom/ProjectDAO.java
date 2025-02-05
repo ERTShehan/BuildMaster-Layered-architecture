@@ -11,6 +11,7 @@ public interface ProjectDAO extends CrudDAO<Project> {
     public String findNameById(String clientId) throws SQLException;
     public ArrayList<String> getAllIdsBy(String clientId) throws SQLException;
     public ArrayList<String> findAllIds() throws SQLException;
+    public String getInfo(String projectId) throws SQLException;
     public String getName(String projectId) throws SQLException;
 
 //    public String getNextProjectId()/  getNextId() throws SQLException;

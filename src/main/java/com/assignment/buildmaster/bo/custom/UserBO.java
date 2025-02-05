@@ -1,10 +1,9 @@
-package com.assignment.buildmaster.dao.custom;
+package com.assignment.buildmaster.bo.custom;
 
-import com.assignment.buildmaster.dao.CrudDAO;
-import com.assignment.buildmaster.entity.User;
+import com.assignment.buildmaster.bo.SuperBO;
 import javafx.util.Pair;
 
-public interface UserDAO extends CrudDAO<User> {
+public interface UserBO extends SuperBO {
     boolean verifyUser(String email, String password);
     Pair<Boolean, String> checkGmail(String email);
     boolean updatePassword(String email, String newPassword);
