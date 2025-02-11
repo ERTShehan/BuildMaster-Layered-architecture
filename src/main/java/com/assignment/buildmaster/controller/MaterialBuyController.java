@@ -267,7 +267,7 @@ public class MaterialBuyController implements Initializable {
             lblTotalPrice.setText(String.valueOf(selectedItem.getTotalPrice()));
 
             btnBuySave.setDisable(true);
-            btnBuyUpdate.setDisable(false);
+            btnBuyUpdate.setDisable(true);
             btnBuyDelete.setDisable(false);
         }
     }

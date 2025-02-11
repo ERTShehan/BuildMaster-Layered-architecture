@@ -114,7 +114,7 @@ public class MaterialUsageController implements Initializable {
 
             btnUsageSave.setDisable(true);
             btnUsageDelete.setDisable(false);
-            btnUsageUpdate.setDisable(false);
+            btnUsageUpdate.setDisable(true);
         }
     }
 

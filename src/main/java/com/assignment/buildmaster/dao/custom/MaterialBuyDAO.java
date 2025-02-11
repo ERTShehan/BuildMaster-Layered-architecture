@@ -1,11 +1,8 @@
 package com.assignment.buildmaster.dao.custom;
 
 import com.assignment.buildmaster.dao.CrudDAO;
-import com.assignment.buildmaster.dto.MaterialBuyDto;
+import com.assignment.buildmaster.entity.MaterialBuy;
 
-import java.sql.SQLException;
-import java.util.List;
-
-public interface MaterialBuyDAO extends CrudDAO<MaterialBuyDto> {
+public interface MaterialBuyDAO extends CrudDAO<MaterialBuy> {
 
 }

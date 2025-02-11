@@ -1,7 +1,12 @@
 package com.assignment.buildmaster.entity;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.io.Serializable;
 
+@Setter
+@Getter
 public class MaterialUsage implements Serializable {
     private String usageId;
     private String projectId;
@@ -17,46 +22,6 @@ public class MaterialUsage implements Serializable {
         this.projectId = projectId;
         this.materialId = materialId;
         this.quantityUsed = quantityUsed;
-        this.date = date;
-    }
-
-    public String getUsageId() {
-        return usageId;
-    }
-
-    public void setUsageId(String usageId) {
-        this.usageId = usageId;
-    }
-
-    public String getProjectId() {
-        return projectId;
-    }
-
-    public void setProjectId(String projectId) {
-        this.projectId = projectId;
-    }
-
-    public String getMaterialId() {
-        return materialId;
-    }
-
-    public void setMaterialId(String materialId) {
-        this.materialId = materialId;
-    }
-
-    public String getQuantityUsed() {
-        return quantityUsed;
-    }
-
-    public void setQuantityUsed(String quantityUsed) {
-        this.quantityUsed = quantityUsed;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
         this.date = date;
     }
 
