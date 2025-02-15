@@ -8,5 +8,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface MaterialUsageDAO extends CrudDAO<MaterialUsage> {
+    public int getMaterialStock(String materialId) throws SQLException;
+    public boolean updateMaterialStock(String materialId, int quantity) throws SQLException;
 
 }

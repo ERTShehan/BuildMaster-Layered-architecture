@@ -10,7 +10,6 @@ import java.util.List;
 public interface MaterialDAO extends CrudDAO<Material> {
     String getUnit(String materialId) throws SQLException;
     String getName(String materialId) throws SQLException;
-
 //    public String getNextMaterialId() throws SQLException;
 //    public ArrayList<String> getAllMaterialIds() throws SQLException;
 //    public boolean saveMaterial(MaterialDto materialDto) throws SQLException;

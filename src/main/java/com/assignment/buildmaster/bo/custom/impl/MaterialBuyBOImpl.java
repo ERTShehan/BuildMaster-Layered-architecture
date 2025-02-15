@@ -2,46 +2,49 @@ package com.assignment.buildmaster.bo.custom.impl;
 
 import com.assignment.buildmaster.bo.custom.MaterialBuyBO;
 import com.assignment.buildmaster.dao.DAOFactory;
-import com.assignment.buildmaster.dao.SQLUtil;
-import com.assignment.buildmaster.dao.custom.impl.MaterialBuyDAOImpl;
+import com.assignment.buildmaster.dao.custom.MaterialBuyDAO;
 import com.assignment.buildmaster.dto.MaterialBuyDto;
-import com.assignment.buildmaster.dto.MaterialUsageDto;
 import com.assignment.buildmaster.entity.MaterialBuy;
-import com.assignment.buildmaster.entity.MaterialUsage;
 
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class MaterialBuyBOImpl implements MaterialBuyBO {
-    MaterialBuyDAOImpl materialBuyDAO = (MaterialBuyDAOImpl) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.MATERIALBUY);
-//    MaterialBuyDAOImpl materialBuyDAO = new MaterialBuyDAOImpl();
+    private final MaterialBuyDAO materialBuyDAO = (MaterialBuyDAO) DAOFactory.getInstance().getDAO(DAOFactory.DAOType.MATERIALBUY);
 
+    @Override
     public String getNextMaterialBuyId() throws SQLException {
         return materialBuyDAO.getNextId();
     }
 
+    @Override
     public List<MaterialBuyDto> getAllMaterialBuy() throws SQLException {
         List<MaterialBuy> all = materialBuyDAO.getAll();
         List<MaterialBuyDto> allMaterialBuy = new ArrayList<>();
         for (MaterialBuy materialBuy : all) {
-            allMaterialBuy.add(new MaterialBuyDto(materialBuy.getPaymentId(), materialBuy.getMaterialId(), materialBuy.getSupplierId(), materialBuy.getDate(), materialBuy.getUnitAmount(), materialBuy.getQuantity(), materialBuy.getTotalPrice()));
+            allMaterialBuy.add(new MaterialBuyDto(
+                    materialBuy.getPaymentId(),
+                    materialBuy.getMaterialId(),
+                    materialBuy.getSupplierId(),
+                    materialBuy.getDate(),
+                    materialBuy.getUnitAmount(),
+                    materialBuy.getQuantity(),
+                    materialBuy.getTotalPrice()
+            ));
         }
-
         return allMaterialBuy;
     }
 
+    @Override
     public boolean saveMaterialBuy(MaterialBuyDto materialBuyDto) throws SQLException {
         Connection connection = null;
-
         try {
             connection = com.assignment.buildmaster.db.DBConnection.getInstance().getConnection();
             connection.setAutoCommit(false);
 
-            boolean isMaterialBuySaved = SQLUtil.execute(
-                    "INSERT INTO MaterialBuy VALUES (?,?,?,?,?,?,?)",
+            MaterialBuy materialBuy = new MaterialBuy(
                     materialBuyDto.getPaymentId(),
                     materialBuyDto.getMaterialId(),
                     materialBuyDto.getSupplierId(),
@@ -51,18 +54,13 @@ public class MaterialBuyBOImpl implements MaterialBuyBO {
                     materialBuyDto.getTotalPrice()
             );
 
+            boolean isMaterialBuySaved = materialBuyDAO.save(materialBuy);
             if (!isMaterialBuySaved) {
                 connection.rollback();
-
                 return false;
             }
 
-            boolean isMaterialUpdated = SQLUtil.execute(
-                    "UPDATE Material SET Quantity_in_Stock = Quantity_in_Stock + ? WHERE Material_ID = ?",
-                    materialBuyDto.getQuantity(),
-                    materialBuyDto.getMaterialId()
-            );
-
+            boolean isMaterialUpdated = materialBuyDAO.updateMaterialStock(materialBuyDto.getMaterialId(), Integer.parseInt(materialBuyDto.getQuantity()));
             if (!isMaterialUpdated) {
                 connection.rollback();
                 return false;
@@ -70,7 +68,6 @@ public class MaterialBuyBOImpl implements MaterialBuyBO {
 
             connection.commit();
             return true;
-
         } catch (SQLException e) {
             if (connection != null) {
                 connection.rollback();
@@ -81,49 +78,42 @@ public class MaterialBuyBOImpl implements MaterialBuyBO {
                 connection.setAutoCommit(true);
             }
         }
-//        return materialBuyDAO.save(new MaterialBuy(materialBuyDto.getPaymentId(), materialBuyDto.getMaterialId(), materialBuyDto.getSupplierId(), materialBuyDto.getDate(), materialBuyDto.getUnitAmount(), materialBuyDto.getQuantity(), materialBuyDto.getTotalPrice()));
     }
 
+    @Override
     public boolean updateMaterialBuy(MaterialBuyDto materialBuyDto) throws SQLException {
-        return materialBuyDAO.update(new MaterialBuy(materialBuyDto.getPaymentId(), materialBuyDto.getMaterialId(), materialBuyDto.getSupplierId(), materialBuyDto.getDate(), materialBuyDto.getUnitAmount(), materialBuyDto.getQuantity(), materialBuyDto.getTotalPrice()));
+        MaterialBuy materialBuy = new MaterialBuy(
+                materialBuyDto.getPaymentId(),
+                materialBuyDto.getMaterialId(),
+                materialBuyDto.getSupplierId(),
+                materialBuyDto.getDate(),
+                materialBuyDto.getUnitAmount(),
+                materialBuyDto.getQuantity(),
+                materialBuyDto.getTotalPrice()
+        );
+        return materialBuyDAO.update(materialBuy);
     }
 
+    @Override
     public boolean deleteMaterialBuy(String paymentId) throws SQLException {
         Connection connection = null;
-
         try {
             connection = com.assignment.buildmaster.db.DBConnection.getInstance().getConnection();
-            connection.setAutoCommit(false); // Start transaction
+            connection.setAutoCommit(false);
 
-            ResultSet resultSet = SQLUtil.execute(
-                    "SELECT Material_ID, Quantity FROM MaterialBuy WHERE Payment_ID = ?",
-                    paymentId
-            );
-
-            if (!resultSet.next()) {
+            MaterialBuy materialBuy = materialBuyDAO.findById(paymentId);
+            if (materialBuy == null) {
                 connection.rollback();
                 return false;
             }
 
-            String materialId = resultSet.getString("Material_ID");
-            int quantity = Integer.parseInt(resultSet.getString("Quantity"));
-
-            boolean isPurchaseDeleted = SQLUtil.execute(
-                    "DELETE FROM MaterialBuy WHERE Payment_ID = ?",
-                    paymentId
-            );
-
+            boolean isPurchaseDeleted = materialBuyDAO.delete(paymentId);
             if (!isPurchaseDeleted) {
                 connection.rollback();
                 return false;
             }
 
-            boolean isMaterialUpdated = SQLUtil.execute(
-                    "UPDATE Material SET Quantity_in_Stock = Quantity_in_Stock - ? WHERE Material_ID = ?",
-                    quantity,
-                    materialId
-            );
-
+            boolean isMaterialUpdated = materialBuyDAO.updateMaterialStock(materialBuy.getMaterialId(), -Integer.parseInt(materialBuy.getQuantity()));
             if (!isMaterialUpdated) {
                 connection.rollback();
                 return false;
@@ -131,7 +121,6 @@ public class MaterialBuyBOImpl implements MaterialBuyBO {
 
             connection.commit();
             return true;
-
         } catch (SQLException e) {
             if (connection != null) {
                 connection.rollback();
@@ -142,6 +131,5 @@ public class MaterialBuyBOImpl implements MaterialBuyBO {
                 connection.setAutoCommit(true);
             }
         }
-//        return materialBuyDAO.delete(paymentId);
     }
 }
